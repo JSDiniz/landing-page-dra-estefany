@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body, html {
+  overflow-x: hidden;
+}
+
+.slick-dots li button:before {
+  color: #9333ea !important;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #7e22ce !important;
+}
