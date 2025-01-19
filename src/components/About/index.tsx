@@ -4,20 +4,18 @@ import { OfficeHours } from './OfficeHours';
 import Url from '../../../public/logo.svg';
 import Dra from '../../assets/About/dra.estefany.svg';
 
-import { FaUserMd, FaCalendarAlt, FaHospital } from 'react-icons/fa';
-
 export const About = () => {
 
   const hoursManaus = [
     { day: 'Segunda a Sexta', time: '08:00 - 12:00' },
-    { day: 'Sábado', time: '08:00 - 13:00' },
+    { day: 'Sábado', time: '09:00 - 11:00' },
     { day: 'Domingo', time: 'Fechado' }
   ];
 
   const hoursItacoatiara = [
     { day: 'Quinta', time: '08:00 - 19:00' },
     { day: 'Sexta ', time: '08:00 - 19:00' },
-    { day: 'Sábado', time: '08:00 - 19:00' },
+    { day: 'Sábado', time: '08:00 - 18:00' },
   ];
 
   return (
@@ -87,31 +85,6 @@ export const About = () => {
                 <p className="text-gray-600">Especializando em Ortodontia.</p>
               </div>
             </motion.div>
-
-            {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="flex items-center space-x-3">
-                <FaUserMd className="text-purple-600 text-2xl" />
-                <div>
-                  <p className="font-semibold">Equipe</p>
-                  <p className="text-sm text-gray-600">Especializada</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3">
-                <FaCalendarAlt className="text-purple-600 text-2xl" />
-                <div>
-                  <p className="font-semibold">Horários</p>
-                  <p className="text-sm text-gray-600">Flexíveis</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3">
-                <FaHospital className="text-purple-600 text-2xl" />
-                <div>
-                  <p className="font-semibold">Estrutura</p>
-                  <p className="text-sm text-gray-600">Moderna</p>
-                </div>
-              </div>
-            </div> */}
-
           </motion.div>
 
           <motion.div
@@ -120,15 +93,6 @@ export const About = () => {
             transition={{ duration: 0.6 }}
             className="relative flex flex-col gap-8"
           >
-            {/* <img
-              src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-              alt="Consultório odontológico"
-              className="rounded-lg shadow-xl"
-            />
-            <div className="absolute -bottom-6 -right-6 bg-purple-600 text-white p-6 rounded-lg shadow-lg">
-              <p className="text-2xl font-bold">15+</p>
-              <p>Anos de Experiência</p>
-            </div> */}
 
             <OfficeHours agenda={hoursManaus} location='Manaus' />
 

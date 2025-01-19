@@ -5,11 +5,17 @@ import { motion } from 'framer-motion';
 import { PiToothFill } from 'react-icons/pi';
 import { RiToothFill } from 'react-icons/ri';
 import { GiTooth, GiToothbrush } from 'react-icons/gi';
-import { FaTooth, FaTeeth, FaMagic, FaRegSmile } from 'react-icons/fa';
+import { FaTooth, FaTeeth, FaMagic } from 'react-icons/fa';
 
 import Url from './../../assets/logo.svg';
 import Vector from './../../assets/Services/vector.svg';
+import Implants from './../../assets/Services/implants.svg';
+import Prostheses from './../../assets/Services/prostheses.svg';
 import Prophylaxis from './../../assets/Services/prophylaxis.svg';
+import DentalCrown from './../../assets/Services/dental-crown.svg';
+import Restoration from './../../assets/Services/restoration.svg';
+import RootCanalTreatment from './../../assets/Services/root-canal-treatment.svg';
+import OrthodonticAppliance from './../../assets/Services/orthodontic-appliance.svg';
 
 const services = [
   {
@@ -41,7 +47,7 @@ const services = [
         'A restauração dentária é o tratamento ideal para reparar dentes danificados por cáries, fraturas ou desgastes. Utilizamos materiais de alta qualidade e técnicas avançadas para restaurar a estrutura original do dente, devolvendo sua forma, função e estética. Seja com resinas compostas, porcelanas ou outros materiais, garantimos resultados naturais e duradouros. O procedimento é rápido, minimamente invasivo e pode ser personalizado de acordo com as necessidades de cada paciente.',
       paragraph_2:
         'Não deixe que dentes danificados prejudiquem sua confiança ou saúde bucal. Agende uma avaliação e descubra como a restauração pode devolver a harmonia ao seu sorriso!',
-      url: <FaTeeth />,
+      url: Restoration,
     },
   },
   {
@@ -57,7 +63,7 @@ const services = [
         'O aparelho ortodôntico é a solução ideal para quem deseja corrigir dentes desalinhados e melhorar a funcionalidade do sorriso. Além de proporcionar um sorriso mais estético e harmônico, o tratamento ortodôntico ajuda na prevenção de problemas bucais como cáries, gengivite e dificuldades na mastigação.',
       paragraph_2:
         'Invista no seu sorriso e na sua saúde bucal com um tratamento ortodôntico de qualidade. Agende sua consulta e descubra a solução ideal para o seu caso!',
-      url: <FaMagic />,
+      url: OrthodonticAppliance,
     },
   },
   {
@@ -73,12 +79,12 @@ const services = [
         'O tratamento de canal é uma solução eficaz para dentes severamente danificados ou infectados, que precisam ser salvos. Quando a polpa dentária (parte interna do dente) sofre infecção, o tratamento de canal é a maneira mais segura de eliminar a infecção e preservar o dente. Durante o procedimento, removemos a polpa danificada, desinfetamos o interior do dente e o preenchemos com material especial, evitando que a infecção volte a ocorrer.',
       paragraph_2:
         'Se você está com dor de dente ou suspeita de infecção, agende uma consulta e evite complicações futuras com o tratamento de canal. Sua saúde bucal merece o melhor cuidado',
-      url: <FaRegSmile />,
+      url: RootCanalTreatment,
     },
   },
   {
     id: '5',
-    icon: <GiToothbrush/>,
+    icon: <FaMagic />,
     title: 'Coroa Dentária',
     cor: "#F1C8DB",
     content: {
@@ -89,12 +95,12 @@ const services = [
         'A coroa dentária é uma capa protetora que recobre um dente danificado, proporcionando mais força, resistência e uma aparência natural. Quando um dente está muito desgastado ou comprometido por cáries, fraturas ou tratamentos anteriores, a coroa é a solução ideal para restaurar sua forma, função e estética.',
       paragraph_2:
         'Com um processo rápido e confortável, as coroas dentárias devolvem a confiança ao seu sorriso, restaurando tanto a funcionalidade quanto a beleza dos seus dentes. Agende uma consulta e descubra como a coroa dentária pode ser a solução ideal para você!',
-      url: <FaRegSmile />,
+      url: DentalCrown,
     },
   },
   {
     id: '6',
-    icon: <FaTooth />,
+    icon: <FaTeeth />,
     title: 'Proteses',
     cor: "#F4A261",
     content: {
@@ -105,7 +111,7 @@ const services = [
         'As próteses dentárias são a solução ideal para quem perdeu dentes devido a cáries, doenças gengivais ou outros problemas bucais. Elas oferecem a possibilidade de restaurar a aparência do seu sorriso e a funcionalidade da sua boca, permitindo que você volte a mastigar, falar e sorrir com confiança.',
       paragraph_2:
         'Com um processo preciso e personalizado, você pode recuperar a estética do seu sorriso e melhorar sua saúde bucal de forma prática e eficaz. Agende sua consulta e descubra como as próteses dentárias podem transformar sua vida!',
-      url: <FaRegSmile />,
+      url: Prostheses,
     },
   },
   {
@@ -121,7 +127,7 @@ const services = [
         'Os implantes dentários são a forma mais moderna e eficaz de substituir dentes perdidos, oferecendo uma solução permanente e natural. Ao contrário das próteses removíveis ou pontes, os implantes são fixados diretamente no osso, proporcionando estabilidade, conforto e aparência natural, como se fosse um dente verdadeiro.',
       paragraph_2:
         'Agende uma consulta e descubra como os implantes dentários podem transformar seu sorriso, devolvendo-lhe a segurança e a qualidade de vida que você merece!',
-      url: <FaRegSmile />,
+      url: Implants,
     },
   }
 ];
@@ -211,8 +217,8 @@ export const Services = () => {
             transition={{ duration: 0.6 }}
             className="w-full max-w-[505px] mx-auto relative flex justify-center items-center">
             <img src={`${services[select].content?.url}`} alt="" className="w-full h-full object-contain z-10" />
-            <img src={Vector} alt="" className="absolute top-5 -right-4 rotate-45 h-[35%] opacity-40" />
-            <img src={Vector} alt="" className="absolute bottom-0 -left-4 rotate-45 h-[35%] opacity-40" />
+            <img src={Vector} alt="" className="absolute bottom-5 -right-4 rotate-45 h-[35%] opacity-40" />
+            <img src={Vector} alt="" className="absolute top-0 -left-4 rotate-45 h-[35%] opacity-40" />
 
           </motion.div>
 
