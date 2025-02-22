@@ -1,25 +1,25 @@
-import { motion } from 'framer-motion';
-import { FaStar, FaSmile, FaAward } from 'react-icons/fa';
+import { motion } from "framer-motion";
+import { FaStar, FaSmile, FaAward } from "react-icons/fa";
 
 const stats = [
   {
     icon: FaStar,
-    value: '4.9',
-    label: 'Avaliação Média',
-    suffix: '/5',
+    value: "4.9",
+    label: "Avaliação Média",
+    suffix: "/5",
   },
   {
     icon: FaSmile,
-    value: '98',
-    label: 'Pacientes Satisfeitos',
-    suffix: '%',
+    value: "98",
+    label: "Pacientes Satisfeitos",
+    suffix: "%",
   },
-  // {
-  //   icon: FaAward,
-  //   value: '15',
-  //   label: 'Anos de Experiência',
-  //   suffix: '+',
-  // },
+  {
+    icon: FaAward,
+    value: "4",
+    label: "Anos de Experiência",
+    suffix: "+",
+  },
 ];
 
 export const TestimonialStats = () => {
@@ -44,7 +44,9 @@ export const TestimonialStats = () => {
                   <span className="text-3xl font-bold text-gray-900">
                     {stat.value}
                   </span>
-                  <span className="text-lg text-gray-600 ml-1">{stat.suffix}</span>
+                  <span className="text-lg text-gray-600 ml-1">
+                    {stat.suffix}
+                  </span>
                 </div>
                 <p className="text-gray-600">{stat.label}</p>
               </div>

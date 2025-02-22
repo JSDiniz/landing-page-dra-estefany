@@ -1,7 +1,7 @@
-import { FooterLinks } from './FooterLinks';
-import { SocialLinks } from './SocialLinks';
+import { FooterLinks } from "./FooterLinks";
+import { SocialLinks } from "./SocialLinks";
 
-import Logo from '../../assets/logo.svg'
+import Logo from "../../assets/logo.svg";
 
 export const Footer = () => {
   return (
@@ -11,7 +11,9 @@ export const Footer = () => {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <img src={Logo} className="text-purple-600 w-9 h-9" />
-              <span className="text-lg md:text-xl font-bold">Dra. Estefany</span>
+              <span className="text-lg md:text-xl font-bold">
+                Dra. Estefany
+              </span>
             </div>
             <p className="text-gray-400">
               Cuidando do seu sorriso com excelência e dedicação.
@@ -21,20 +23,20 @@ export const Footer = () => {
           <FooterLinks
             title="Serviços"
             links={[
-              { label: 'Implantes', href: '#implantes' },
-              { label: 'Ortodontia', href: '#ortodontia' },
-              { label: 'Clareamento', href: '#clareamento' },
-              { label: 'Lentes de Contato', href: '#lentes' }
+              { label: "Implantes", href: "#implantes" },
+              { label: "Ortodontia", href: "#ortodontia" },
+              { label: "Clareamento", href: "#clareamento" },
+              { label: "Lentes de Contato", href: "#lentes" },
             ]}
           />
 
           <FooterLinks
             title="Links Úteis"
             links={[
-              { label: 'Sobre Nós', href: '#sobre' },
-              { label: 'FAQ', href: '#faq' },
-              { label: 'Contato', href: '#contato' },
-              { label: 'Blog', href: '#blog' }
+              { label: "Sobre Nós", href: "#sobre" },
+              { label: "FAQ", href: "#faq" },
+              { label: "Contato", href: "#contato" },
+              { label: "Blog", href: "#blog" },
             ]}
           />
 
@@ -48,7 +50,10 @@ export const Footer = () => {
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} DentCare. Todos os direitos reservados.</p>
+          <p>
+            &copy; {new Date().getFullYear()} Dra. Estefany. Todos os direitos
+            reservados.
+          </p>
         </div>
       </div>
     </footer>
