@@ -1,22 +1,9 @@
 import { motion } from 'framer-motion';
-import { OfficeHours } from './OfficeHours';
 
 import Url from '../../../public/logo.svg';
-import Dra from '../../assets/About/dra.estefany.svg';
+import Dra from '../../assets/About/dra.estefany-1.svg';
 
 export const About = () => {
-
-  const hoursManaus = [
-    { day: 'Segunda a Sexta', time: '08:00 - 12:00' },
-    { day: 'Sábado', time: '09:00 - 11:00' },
-    { day: 'Domingo', time: 'Fechado' }
-  ];
-
-  const hoursItacoatiara = [
-    { day: 'Quinta', time: '08:00 - 19:00' },
-    { day: 'Sexta ', time: '08:00 - 19:00' },
-    { day: 'Sábado', time: '08:00 - 18:00' },
-  ];
 
   return (
     <section id="sobre" className="py-20 bg-purple-50">
@@ -44,7 +31,7 @@ export const About = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -66,37 +53,26 @@ export const About = () => {
             <p className="text-gray-600 mb-8">
               Esse tipo de abordagem e fundamental para proporcionar uma base solida para os dentes permanentes e para garantir que os maxilares se desenvolvem de maneira harmoniosa.
             </p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex items-center space-x-4"
-            >
-              <div className="w-20 h-20 rounded-full relative overflow-hidden bg-fuchsia-50 shadow shadow-fuchsia-700/40">
-                <img
-                  src={Dra}
-                  alt="Dra. Estefany Oliveira"
-                  className="w-full h-full scale-150 object-top absolute top-5"
-                />
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-800">Dra. Estefany Gomes Oliveira</h3>
-                <p className="text-gray-600">Especializando em Ortodontia.</p>
-              </div>
-            </motion.div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative flex flex-col gap-8"
+            className='flex items-center justify-center h-[399px]'
           >
 
-            <OfficeHours agenda={hoursManaus} location='Manaus' />
+            <div className='group h-full relative top-8 '>
+              <img
+                src={Dra}
+                alt="Dra. Estefany Oliveira"
+                className="h-full object-cover"
+              />
+              <span className="absolute bottom-10 left-1/2 transform -translate-x-1/2  opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-lg font-bold italic text-fuchsia-500">
+                Dra. Estefany
+              </span>
+            </div>
 
-            <OfficeHours agenda={hoursItacoatiara} location='Itacoatiara' />
           </motion.div>
         </div>
       </div>
