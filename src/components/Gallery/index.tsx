@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { GalleryGrid } from './GalleryGrid';
 import { galleryData } from './galleryData';
 
-import Url from '../../../public/logo.svg';
+import Url from '/logo.svg';
 
 export const Gallery = () => {
   return (
@@ -32,7 +32,7 @@ export const Gallery = () => {
         </motion.div>
 
         <GalleryGrid images={galleryData} />
-        
+
       </div>
     </section>
   );

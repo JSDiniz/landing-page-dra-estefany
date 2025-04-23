@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { NavLinks } from './NavLinks';
 import { MobileMenu } from './MobileMenu';
 
-import Logo from '../../assets/logo.svg'
+import Logo from '/logo.svg'
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +24,7 @@ export const Header = () => {
           </motion.a>
 
           <NavLinks className="hidden md:flex space-x-8" />
-          
+
           <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
       </section>

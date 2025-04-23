@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useForm } from "./useForm";
 
-import Url from '../../../public/logo.svg';
+import Url from '/logo.svg';
 
 export const AppointmentForm = () => {
   const { formData, handleChange, handleSubmit, isSubmitting } = useForm();

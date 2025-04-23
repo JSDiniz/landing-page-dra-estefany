@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { TestimonialSlider } from './TestimonialSlider';
 import { TestimonialStats } from './TestimonialStats';
 
-import Url from '../../../public/logo.svg';
+import Url from '/logo.svg';
 
 export const Testimonials = () => {
   return (

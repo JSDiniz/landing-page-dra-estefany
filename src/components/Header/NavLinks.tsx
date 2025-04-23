@@ -3,9 +3,7 @@ interface NavLinksProps {
   onClick?: (() => void)
 }
 
-export const NavLinks = ({ className = '', onClick}: NavLinksProps) => {
-
-  console.log("onClick: ", onClick)
+export const NavLinks = ({ className = '', onClick }: NavLinksProps) => {
 
   return (
     <nav className={`${className} items-center`}>

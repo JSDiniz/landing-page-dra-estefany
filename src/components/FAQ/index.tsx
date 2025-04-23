@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { FAQItem } from './FAQItem';
 import { faqData } from './faqData';
 
-import Url from '../../../public/logo.svg';
+import Url from '/logo.svg';
 
 export const FAQ = () => {
   return (

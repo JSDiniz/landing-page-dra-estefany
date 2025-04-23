@@ -6,7 +6,7 @@ import { RiToothFill } from 'react-icons/ri';
 import { GiTooth, GiToothbrush } from 'react-icons/gi';
 import { FaTooth, FaTeeth, FaMagic } from 'react-icons/fa';
 
-import Url from './../../assets/logo.svg';
+import Url from '/logo.svg';
 import Vector from './../../assets/Services/vector.svg';
 import Implants from './../../assets/Services/implants.svg';
 import Prostheses from './../../assets/Services/prostheses.svg';
@@ -142,7 +142,7 @@ export const Services = () => {
     loop: true,
     slidesToScroll: 1,
   }, [
-    Autoplay({ delay: 10000, playOnInit: true })
+    Autoplay({ delay: 30000, playOnInit: true })
   ])
 
   function scrollPrev() {
@@ -179,7 +179,9 @@ export const Services = () => {
   const handleClick = (index: number) => {
     setSelect(index)
     emblaApi?.scrollTo(index)
-    emblaApi?.reInit()
+    const autoplay = emblaApi?.plugins().autoplay;
+    autoplay?.reset();
+    autoplay?.play();
   }
 
   return (
