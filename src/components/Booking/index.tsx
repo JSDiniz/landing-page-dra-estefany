@@ -14,14 +14,15 @@ export const Booking = () => {
           <p className="text-gray-600">Tratamentos Ortodônticos Adultos ou Infantis</p>
         </motion.div>
 
-        <motion.button
+        <motion.a
+         href="#contato"
         initial={{ opacity: 0, x: 50 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6 }}
           className="bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors"
         >
           Agende uma consulta
-        </motion.button>
+        </motion.a>
       </div>
     </section>
   );

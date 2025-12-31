@@ -1,10 +1,26 @@
+import { useState } from "react";
+
 import { motion } from "framer-motion";
 import { useForm } from "./useForm";
 
-import Url from '/logo.svg';
+import Url from "/logo.svg";
+import SchedulerCard from "../Scheduler/SchedulerCard";
+
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  start: string;
+  end: string;
+}
 
 export const AppointmentForm = () => {
-  const { formData, handleChange, handleSubmit, isSubmitting } = useForm();
+  const [schedulerKey, setSchedulerKey] = useState(0);
+  const { formData, handleChange, handleSubmit, isSubmitting, setSchedule } = useForm();
+
+  const handleSubmitWithReset = async (e: React.FormEvent) => {
+    await handleSubmit(e);
+    setSchedulerKey(prev => prev + 1); // força reset do SchedulerCard
+  };
 
   return (
     <section id="contato" className="py-20 bg-white">
@@ -29,7 +45,7 @@ export const AppointmentForm = () => {
             Preencha o formulário abaixo e entraremos em contato em breve.
           </p>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmitWithReset} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label
@@ -88,23 +104,22 @@ export const AppointmentForm = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="w-full">
                 <label
-                  htmlFor="service"
+                  htmlFor="city"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Cidade
                 </label>
                 <select
-                  id="service"
-                  name="service"
-                  value={formData.service}
+                  id="city"
+                  name="city"
+                  value={formData.city}
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 >
                   <option value="">Selecione o consultório</option>
-                  <option value="ortodontia">Manaus</option>
-                  <option value="implantes">Itacoatiara</option>
-
+                  <option value="Manaus">Manaus</option>
+                  <option value="Itacoatiara">Itacoatiara</option>
                 </select>
               </div>
 
@@ -131,6 +146,8 @@ export const AppointmentForm = () => {
                 </select>
               </div>
             </div>
+
+            <SchedulerCard key={schedulerKey} onScheduleSelect={setSchedule}/>
 
             <div>
               <label

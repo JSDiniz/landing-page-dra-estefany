@@ -1,28 +1,44 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from "react";
 
 interface FormData {
   name: string;
   email: string;
   phone: string;
+  city: string;
   service: string;
+  date: string; // ✅
+  time: string; // ✅
   message: string;
 }
 
 export const useForm = () => {
   const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    phone: '',
-    service: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    city: "",
+    service: "",
+    date: "",
+    time: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const setSchedule = (date: Date, time: string) => {
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      date: date.toISOString().slice(0, 10), // YYYY-MM-DD
+      time,
     }));
   };
 
@@ -30,27 +46,36 @@ export const useForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    // Here you would typically send the data to your backend
-    console.log('Form submitted:', formData);
-    
+    const response = await fetch("http://localhost:3000/appointments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ ...formData })
+    });
+  
+    const data = await response.json();
+
     setIsSubmitting(false);
     setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      service: '',
-      message: ''
+      name: "",
+      email: "",
+      phone: "",
+      city: "",
+      service: "",
+      date: "",
+      time: "",
+      message: "",
     });
-    alert('Agendamento recebido! Entraremos em contato em breve.');
+
+    alert(data.message);
   };
 
   return {
     formData,
     handleChange,
     handleSubmit,
-    isSubmitting
+    isSubmitting,
+    setSchedule,
   };
 };
