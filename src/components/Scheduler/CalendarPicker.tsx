@@ -92,9 +92,9 @@ export default function CalendarPicker({
         disabled={!available}
         className={`h-12 rounded-lg font-medium transition-all ${
           selected
-            ? "bg-teal-600 text-white shadow-lg scale-105"
+            ? "bg-purple-600 text-white shadow-lg scale-105"
             : available
-            ? "bg-white hover:bg-teal-50 text-gray-800 hover:text-teal-600 border border-gray-200 hover:border-teal-300"
+            ? "bg-white hover:bg-purple-50 text-fuchsia-800 hover:text-purple-600 border border-purple-200 hover:border-purple-300"
             : "bg-gray-100 text-gray-400 cursor-not-allowed"
         }`}
       >
@@ -109,19 +109,19 @@ export default function CalendarPicker({
         <button
           type="button"
           onClick={handlePrevMonth}
-          className="p-2 hover:bg-gray-100 rounded-lg transition"
+          className="p-2 hover:bg-fuchsia-100 rounded-lg transition"
         >
-          <ChevronLeft className="w-5 h-5 text-gray-600" />
+          <ChevronLeft className="w-5 h-5 text-fuchsia-600" />
         </button>
-        <h3 className="text-lg font-bold text-gray-800">
+        <h3 className="text-lg font-bold text-fuchsia-800">
           {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
         </h3>
         <button
           type="button"
           onClick={handleNextMonth}
-          className="p-2 hover:bg-gray-100 rounded-lg transition"
+          className="p-2 hover:bg-fuchsia-100 rounded-lg transition"
         >
-          <ChevronRight className="w-5 h-5 text-gray-600" />
+          <ChevronRight className="w-5 h-5 text-fuchsia-600" />
         </button>
       </div>
 
@@ -129,7 +129,7 @@ export default function CalendarPicker({
         {daysOfWeek.map((day) => (
           <div
             key={day}
-            className="text-center text-sm font-semibold text-gray-600"
+            className="text-center text-sm font-semibold text-fuchsia-600"
           >
             {day}
           </div>
@@ -138,16 +138,16 @@ export default function CalendarPicker({
 
       <div className="grid grid-cols-7 gap-2">{days}</div>
 
-      <div className="mt-6 pt-6 border-t border-gray-200">
-        <p className="text-sm text-gray-600 mb-2">Dias disponíveis:</p>
+      <div className="mt-6 pt-6 border-t border-fuchsia-200">
+        <p className="text-sm text-fuchsia-600 mb-2">Dias disponíveis:</p>
         <div className="flex gap-2 text-xs">
-          <span className="bg-teal-100 text-teal-700 px-3 py-1 rounded-full font-medium">
+          <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-medium">
             Terças
           </span>
-          <span className="bg-teal-100 text-teal-700 px-3 py-1 rounded-full font-medium">
+          {/* <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-medium">
             Quintas
-          </span>
-          <span className="bg-teal-100 text-teal-700 px-3 py-1 rounded-full font-medium">
+          </span> */}
+          <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-medium">
             Sábados
           </span>
         </div>

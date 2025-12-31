@@ -22,7 +22,9 @@ export const useForm = () => {
     time: "",
     message: "",
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [modalMessage, setModalMessage] = useState<string | null>(null); // ✅ nova state
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -35,7 +37,7 @@ export const useForm = () => {
   };
 
   const setSchedule = (date: Date, time: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       date: date.toISOString().slice(0, 10), // YYYY-MM-DD
       time,
@@ -49,11 +51,11 @@ export const useForm = () => {
     const response = await fetch("http://localhost:3000/appointments", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...formData })
+      body: JSON.stringify({ ...formData }),
     });
-  
+
     const data = await response.json();
 
     setIsSubmitting(false);
@@ -68,8 +70,11 @@ export const useForm = () => {
       message: "",
     });
 
-    alert(data.message);
+    // mostra modal em vez de alert
+    setModalMessage(data.message);
   };
+
+  const closeModal = () => setModalMessage(null);
 
   return {
     formData,
@@ -77,5 +82,7 @@ export const useForm = () => {
     handleSubmit,
     isSubmitting,
     setSchedule,
+    modalMessage,
+    closeModal
   };
 };

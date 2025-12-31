@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaQuoteLeft } from 'react-icons/fa';
+import { FaQuoteLeft, FaUserCircle } from 'react-icons/fa';
 import { Testimonial } from './types';
 
 interface TestimonialCardProps {
@@ -19,13 +19,17 @@ export const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
       </motion.div>
 
       <div className="flex flex-col md:flex-row gap-6 items-center">
-        <motion.img
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          src={testimonial.image}
-          alt={testimonial.name}
-          className="w-24 h-24 rounded-full object-cover"
-        />
+      {testimonial.image ? (
+          <motion.img
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            src={testimonial.image}
+            alt={testimonial.name}
+            className="w-24 h-24 rounded-full object-cover"
+          />
+        ) : (
+          <FaUserCircle className="w-24 h-24 text-gray-300" />
+        )}
         
         <div className="flex-1">
           <motion.p

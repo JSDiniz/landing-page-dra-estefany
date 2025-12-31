@@ -6,6 +6,7 @@ import { useForm } from "./useForm";
 import Url from "/logo.svg";
 import SchedulerCard from "../Scheduler/SchedulerCard";
 import { SERVICES } from "../Services";
+import { Modal } from "../Modal";
 
 export interface CalendarEvent {
   id: string;
@@ -16,8 +17,15 @@ export interface CalendarEvent {
 
 export const AppointmentForm = () => {
   const [schedulerKey, setSchedulerKey] = useState(0);
-  const { formData, handleChange, handleSubmit, isSubmitting, setSchedule } =
-    useForm();
+  const {
+    formData,
+    handleChange,
+    handleSubmit,
+    isSubmitting,
+    setSchedule,
+    modalMessage,
+    closeModal,
+  } = useForm();
 
   const handleSubmitWithReset = async (e: React.FormEvent) => {
     await handleSubmit(e);
@@ -124,7 +132,9 @@ export const AppointmentForm = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 >
                   <option value="">Selecione o cidade</option>
-                  <option value="Manaus">Manaus</option>
+                  <option value="Av. Djalma Batista, 946 - Nossa Sra. das Graças, Manaus - AM - 69050-010">
+                    Manaus
+                  </option>
                   <option value="Itacoatiara">Itacoatiara</option>
                 </select>
               </div>
@@ -190,6 +200,8 @@ export const AppointmentForm = () => {
           </form>
         </motion.div>
       </div>
+
+      {modalMessage && <Modal message={modalMessage} onClose={closeModal} />}
     </section>
   );
 };
