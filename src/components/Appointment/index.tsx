@@ -5,6 +5,7 @@ import { useForm } from "./useForm";
 
 import Url from "/logo.svg";
 import SchedulerCard from "../Scheduler/SchedulerCard";
+import { SERVICES } from "../Services";
 
 export interface CalendarEvent {
   id: string;
@@ -15,12 +16,17 @@ export interface CalendarEvent {
 
 export const AppointmentForm = () => {
   const [schedulerKey, setSchedulerKey] = useState(0);
-  const { formData, handleChange, handleSubmit, isSubmitting, setSchedule } = useForm();
+  const { formData, handleChange, handleSubmit, isSubmitting, setSchedule } =
+    useForm();
 
   const handleSubmitWithReset = async (e: React.FormEvent) => {
     await handleSubmit(e);
-    setSchedulerKey(prev => prev + 1); // força reset do SchedulerCard
+    setSchedulerKey((prev) => prev + 1);
   };
+
+  const sortedOptions = SERVICES.map((service) => service.title).sort((a, b) =>
+    a.localeCompare(b)
+  );
 
   return (
     <section id="contato" className="py-20 bg-white">
@@ -117,7 +123,7 @@ export const AppointmentForm = () => {
                   required
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 >
-                  <option value="">Selecione o consultório</option>
+                  <option value="">Selecione o cidade</option>
                   <option value="Manaus">Manaus</option>
                   <option value="Itacoatiara">Itacoatiara</option>
                 </select>
@@ -139,15 +145,21 @@ export const AppointmentForm = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 >
                   <option value="">Selecione um serviço</option>
-                  <option value="implantes">Implantes Dentários</option>
-                  <option value="ortodontia">Ortodontia</option>
-                  <option value="clareamento">Clareamento</option>
-                  <option value="lentes">Lentes de Contato</option>
+                  <option value="primeira-consulta">Primeira Consulta</option>
+                  <option value="reavaliacao">Reavaliação</option>
+                  {sortedOptions.map((title) => (
+                    <option
+                      key={title.toLowerCase()}
+                      value={title.toLowerCase()}
+                    >
+                      {title}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
 
-            <SchedulerCard key={schedulerKey} onScheduleSelect={setSchedule}/>
+            <SchedulerCard key={schedulerKey} onScheduleSelect={setSchedule} />
 
             <div>
               <label

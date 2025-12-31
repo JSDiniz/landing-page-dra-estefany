@@ -42,9 +42,16 @@ export const Footer = () => {
 
           <div>
             <h3 className="font-semibold text-lg mb-4">Contato</h3>
-            <p className="text-gray-400 mb-2">Rua Example, 123</p>
-            <p className="text-gray-400 mb-2">São Paulo - SP</p>
-            <p className="text-gray-400 mb-4">(11) 99999-9999</p>
+            <a
+              href="https://www.google.com/maps/place/Av.+Djalma+Batista,+946+-+Nossa+Sra.+das+Gra%C3%A7as,+Manaus+-+AM,+69050-010/@-3.107814,-60.0237158,3a,75y,52.05h,79.93t/data=!3m7!1e1!3m5!1slqgfRd4NIR8Ms7pg43tmbg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D10.072868983982076%26panoid%3DlqgfRd4NIR8Ms7pg43tmbg%26yaw%3D52.04828613260053!7i16384!8i8192!4m6!3m5!1s0x926c0555d62591e1:0xd79a1c6165e1c585!8m2!3d-3.1075816!4d-60.0235423!16s%2Fg%2F11c2dx0s1d?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2OUgBUAM%3D"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 mb-2 block"
+            >
+              Av. Djalma Batista, 946 - Nossa Sra. das Graças, 69050-010
+            </a>
+            <p className="text-gray-400 mb-2">Manaus - AM</p>
+            <p className="text-gray-400 mb-4">(92) 9 8618-5420</p>
             <SocialLinks />
           </div>
         </div>

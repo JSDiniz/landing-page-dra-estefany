@@ -19,12 +19,12 @@ export const galleryData = [
     description: "Resultado de tratamento ortodôntico",
     treatment: "Ortodontia"
   },
-  {
-    url: Foto3,
-    title: "Clareamento Dental",
-    description: "Resultado após sessões de clareamento",
-    treatment: "Clareamento"
-  },
+  // {
+  //   url: Foto3,
+  //   title: "Clareamento Dental",
+  //   description: "Resultado após sessões de clareamento",
+  //   treatment: "Clareamento"
+  // },
   {
     url: Foto4,
     title: "Implante Dentário",

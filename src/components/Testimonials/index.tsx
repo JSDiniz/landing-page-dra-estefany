@@ -16,7 +16,7 @@ export const Testimonials = () => {
           className="grid grid-cols-1 gap-4 text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-gray-900">
-            O Que Nossos Pacientes Dizem
+          O Que Meus Pacientes Dizem
           </h2>
 
           <div className="grid grid-rows-1 grid-flow-col gap-1 items-center justify-center">
