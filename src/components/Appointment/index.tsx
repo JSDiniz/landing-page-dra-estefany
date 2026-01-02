@@ -135,7 +135,7 @@ export const AppointmentForm = () => {
                   <option value="Av. Djalma Batista, 946 - Nossa Sra. das Graças, Manaus - AM - 69050-010">
                     Manaus
                   </option>
-                  <option value="Itacoatiara">Itacoatiara</option>
+                  {/* <option value="Itacoatiara">Itacoatiara</option> */}
                 </select>
               </div>
 
