@@ -34,7 +34,7 @@ export default function SchedulerCard({
   /* 🔹 Busca eventos do Google Calendar */
   useEffect(() => {
     fetch(
-      "http://localhost:3000/appointments?calendarId=estefanygomesoliveira@gmail.com"
+      "https://api-emails-eight.vercel.app/appointments?calendarId=estefanygomesoliveira@gmail.com"
     )
       .then((res) => res.json())
       .then(setEvents);

@@ -48,7 +48,7 @@ export const useForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const response = await fetch("http://localhost:3000/appointments", {
+    const response = await fetch("https://api-emails-eight.vercel.app/appointments", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
