@@ -129,6 +129,18 @@ export default function SchedulerCard({
     const busy = busyMap[dateKey] || [];
     const slots: TimeSlot[] = [];
 
+    // Verifica se a data selecionada é hoje
+    const today = new Date();
+    const isToday =
+      selectedDate.getDate() === today.getDate() &&
+      selectedDate.getMonth() === today.getMonth() &&
+      selectedDate.getFullYear() === today.getFullYear();
+
+    // Hora atual em formato HH:MM
+    const currentTime = `${String(today.getHours()).padStart(2, "0")}:${String(
+      today.getMinutes()
+    ).padStart(2, "0")}`;
+
     day.periods.forEach((period) => {
       let [h, m] = period.start.split(":").map(Number);
       const [endH, endM] = period.end.split(":").map(Number);
@@ -139,9 +151,12 @@ export default function SchedulerCard({
           "0"
         )}`;
 
+        // Verifica se o horário já passou (se for hoje)
+        const isPastTime = isToday && time <= currentTime;
+
         slots.push({
           time,
-          isBooked: busy.includes(time),
+          isBooked: busy.includes(time) || isPastTime,
         });
 
         m += 30;
