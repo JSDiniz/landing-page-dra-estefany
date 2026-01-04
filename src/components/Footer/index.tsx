@@ -61,6 +61,10 @@ export const Footer = () => {
             &copy; {new Date().getFullYear()} Dra. Estefany. Todos os direitos
             reservados.
           </p>
+          {/* <p className="mt-2 text-sm">
+            Desenvolvido por{" "}
+            <span className="text-purple-400 font-medium">Dev Diniz</span>
+          </p> */}
         </div>
       </div>
     </footer>
