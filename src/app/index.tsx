@@ -8,21 +8,25 @@ import { FAQ } from '../components/FAQ';
 import { AppointmentForm } from '../components/Appointment';
 import { Footer } from '../components/Footer';
 import { Testimonials } from '../components/Testimonials';
+import { SEO } from '../components/SEO';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      <Hero />
-      <About />
-      <Services />
-      <Booking/>
-      <Gallery />
-      <FAQ />
-      <Testimonials/>
-      <AppointmentForm />
-      <Footer />
-    </div>
+    <>
+      <SEO />
+      <div className="min-h-screen bg-white">
+        <Header />
+        <Hero />
+        <About />
+        <Services />
+        <Booking/>
+        <Gallery />
+        <FAQ />
+        <Testimonials/>
+        <AppointmentForm />
+        <Footer />
+      </div>
+    </>
   );
 }
 

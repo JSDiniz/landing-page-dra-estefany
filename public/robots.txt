@@ -1,0 +1,20 @@
+# robots.txt para Dra. Estefany - Clínica Odontológica
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://draestefany.com.br/sitemap.xml
+
+# Bloquear arquivos desnecessários
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*.json$
+Disallow: /*?*
+
+# Permitir recursos importantes
+Allow: /assets/
+Allow: /logo.svg
+Allow: /favicon.ico
+
+
