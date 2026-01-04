@@ -11,7 +11,7 @@ interface SEOProps {
 }
 
 export const SEO = ({
-  title = 'Dra. Estefany Oliveira 🦷 - Implantes • Periodontia • Ortodontia - Cuidando do seu sorriso com excelência ✨s',
+  title = 'Dra. Estefany Oliveira 🦷 - Implantes • Periodontia • Ortodontia.',
   description = 'Consultório odontológico com ênfase em Implantes, Periodontia e Ortodontia, localizado em Manaus. Oferecemos tratamentos personalizados, com foco na saúde e no bem-estar. Agende sua consulta!',
   keywords = 'Dentista em Manaus, Ortodontia em Manaus, Periodontia em Manaus, Ortopedia dos Maxilares, Aparelho Ortodôntico, Tratamento Dentário, Clínica Odontológica em Manaus, Dra. Estefany, Dra. Estefany Oliveira, Saúde Bucal, Implantes Dentários, Restauração Dental.',
   image = '/logo.svg',
