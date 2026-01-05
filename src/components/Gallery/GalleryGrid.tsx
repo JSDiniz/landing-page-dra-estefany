@@ -1,25 +1,19 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { GalleryModal } from './GalleryModal';
-import { GalleryImage } from './types';
+// import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+// import { GalleryModal } from "./GalleryModal";
+import { GalleryImage } from "./types";
 
 interface GalleryGridProps {
   images: GalleryImage[];
 }
 
 export const GalleryGrid = ({ images }: GalleryGridProps) => {
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
+  // const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
 
   return (
     <>
       {/* Container tipo Pinterest */}
-      <div
-        style={{
-          columnCount: 3,       // número de colunas
-          columnGap: '16px',    // espaço entre colunas
-        }}
-        
-      >
+      <div className="gallery-grid">
         {images.map((image, index) => (
           <motion.div
             key={index}
@@ -27,30 +21,30 @@ export const GalleryGrid = ({ images }: GalleryGridProps) => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
             whileHover={{ scale: 1.03 }}
-            className="mb-10 cursor-pointer break-inside-avoid"
-            onClick={() => setSelectedImage(image)}
+            className="mb-4 break-inside-avoid"
+            // onClick={() => setSelectedImage(image)}
           >
             <img
               src={image.url}
               alt={image.description}
               className="w-full rounded-lg object-cover"
-              style={{ display: 'block' }}
+              style={{ display: "block" }}
             />
-            <div className="bg-black/40 opacity-0 hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center -mt-20 p-4">
+            {/* <div className="bg-black/40 opacity-0 hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center -mt-20 p-4">
               <p className="text-white text-center">{image.description}</p>
-            </div>
+            </div> */}
           </motion.div>
         ))}
       </div>
 
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {selectedImage && (
           <GalleryModal
             image={selectedImage}
             onClose={() => setSelectedImage(null)}
           />
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </>
   );
 };

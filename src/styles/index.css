@@ -13,3 +13,22 @@ body, html {
 .slick-dots li.slick-active button:before {
   color: #7e22ce !important;
 }
+
+.gallery-grid {
+  column-count: 1;
+  column-gap: 16px;
+}
+
+/* Tablet */
+@media (min-width: 640px) {
+  .gallery-grid {
+    column-count: 2;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .gallery-grid {
+    column-count: 3;
+  }
+}
