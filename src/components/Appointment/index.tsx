@@ -5,8 +5,9 @@ import { useForm } from "./useForm";
 
 import Url from "/logo.svg";
 import SchedulerCard from "../Scheduler/SchedulerCard";
-import { SERVICES } from "../Services";
+
 import { Modal } from "../Modal";
+import { SERVICES } from "../../mocks/services";
 
 export interface CalendarEvent {
   id: string;

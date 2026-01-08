@@ -3,13 +3,13 @@ import { RiToothFill } from 'react-icons/ri';
 import { GiTooth, GiToothbrush } from 'react-icons/gi';
 import { FaTooth, FaTeeth, FaMagic } from 'react-icons/fa';
 
-import Implants from './../../assets/Services/implants.svg';
-import Prostheses from './../../assets/Services/prostheses.svg';
-import Prophylaxis from './../../assets/Services/prophylaxis.svg';
-import DentalCrown from './../../assets/Services/dental-crown.svg';
-import Restoration from './../../assets/Services/restoration.svg';
-import RootCanalTreatment from './../../assets/Services/root-canal-treatment.svg';
-import OrthodonticAppliance from './../../assets/Services/orthodontic-appliance.svg';
+import Implants from '../assets/Services/implants.svg';
+import Prostheses from '../assets/Services/prostheses.svg';
+import Prophylaxis from '../assets/Services/prophylaxis.svg';
+import DentalCrown from '../assets/Services/dental-crown.svg';
+import Restoration from '../assets/Services/restoration.svg';
+import RootCanalTreatment from '../assets/Services/root-canal-treatment.svg';
+import OrthodonticAppliance from '../assets/Services/orthodontic-appliance.svg';
 
 export const SERVICES = [
     {
