@@ -92,15 +92,24 @@ export default function SchedulerCard({
 
   /* 🔹 Datas disponíveis */
   const availableDates = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+  
     return doctorAvailabilityMock
       .filter((day) => {
+        const dayDate = new Date(`${day.date}T00:00:00`);
+  
+        // ❌ Remove datas passadas
+        if (dayDate < today) return false;
+  
         const busy = busyMap[day.date] || [];
-
+  
         const allSlots: string[] = [];
+  
         day.periods.forEach((p) => {
           let [h, m] = p.start.split(":").map(Number);
           const [endH, endM] = p.end.split(":").map(Number);
-
+  
           while (h < endH || (h === endH && m < endM)) {
             allSlots.push(
               `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`
@@ -112,12 +121,26 @@ export default function SchedulerCard({
             }
           }
         });
-
+  
+        // ⏰ Se for hoje, remove horários já passados
+        if (dayDate.getTime() === today.getTime()) {
+          const now = new Date();
+          const currentTime = `${String(now.getHours()).padStart(2, "0")}:${String(
+            now.getMinutes()
+          ).padStart(2, "0")}`;
+  
+          return allSlots.some(
+            (slot) => !busy.includes(slot) && slot > currentTime
+          );
+        }
+  
+        // 📅 Datas futuras normais
         return allSlots.some((slot) => !busy.includes(slot));
       })
       .map((day) => day.date);
   }, [busyMap]);
-
+  
+  
   /* 🔹 Horários (DISPONÍVEL + INDISPONÍVEL) */
   const availableTimes = useMemo<TimeSlot[]>(() => {
     if (!selectedDate) return [];
@@ -152,7 +175,7 @@ export default function SchedulerCard({
         )}`;
 
         // Verifica se o horário já passou (se for hoje)
-        const isPastTime = isToday && time <= currentTime;
+        const isPastTime = isToday && time < currentTime;
 
         slots.push({
           time,
