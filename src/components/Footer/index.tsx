@@ -36,10 +36,10 @@ export const Footer = () => {
           <FooterLinks
             title="Links Úteis"
             links={[
+              { label: "Início", href: "#inicio" },
               { label: "Sobre Nós", href: "#sobre" },
               { label: "FAQ", href: "#faq" },
               { label: "Contato", href: "#contato" },
-              { label: "Blog", href: "#blog" },
             ]}
           />
 
