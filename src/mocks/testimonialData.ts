@@ -1,11 +1,11 @@
-import { Testimonial } from './types';
+import { Testimonial } from '../components/Testimonials/types';
 
 export const testimonialData: Testimonial[] = [
   {
     name: 'Ana Silva',
     image: '',
-    text: 'Incrível transformação! O tratamento com lentes de contato dental mudou completamente meu sorriso e minha autoestima. A equipe foi extremamente profissional e atenciosa durante todo o processo.',
-    treatment: 'Lentes de Contato Dental'
+    text: 'Fiquei muito satisfeita com o tratamento ortodôntico. O alinhamento dos meus dentes evoluiu de forma visível ao longo do tratamento, e todo o acompanhamento foi feito com muito cuidado e profissionalismo. Hoje sorrio com muito mais confiança.',
+    treatment: 'Aparelho Ortodôntico'
   },
   {
     name: 'Carlos Santos',
