@@ -40,7 +40,7 @@ export const Footer = () => {
             title="Links Úteis"
             links={[
               { label: "Início", href: "#inicio" },
-              { label: "Sobre Nós", href: "#sobre" },
+              { label: "Sobre", href: "#sobre" },
               { label: "Serviços", href: "#servicos" },
               { label: "FAQ", href: "#faq" },
             ]}
