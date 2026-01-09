@@ -16,10 +16,12 @@ interface TimeSlot {
 }
 
 interface SchedulerCardProps {
+  selectedCity: string;
   onScheduleSelect: (date: Date, time: string) => void;
 }
 
 export default function SchedulerCard({
+  selectedCity,
   onScheduleSelect,
 }: SchedulerCardProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -92,17 +94,23 @@ export default function SchedulerCard({
 
   /* 🔹 Datas disponíveis */
   const availableDates = useMemo(() => {
+    if (!selectedCity) return [];
+  
     const today = new Date();
     today.setHours(0, 0, 0, 0);
   
-    return doctorAvailabilityMock
+    // pega só a disponibilidade do médico da cidade selecionada
+    const cityAvailability = doctorAvailabilityMock.find(
+      (d) => d.city === selectedCity
+    );
+    if (!cityAvailability) return [];
+  
+    return cityAvailability.availability
       .filter((day) => {
         const dayDate = new Date(`${day.date}T00:00:00`);
   
-        // ❌ Remove datas passadas
+        // remove datas passadas
         if (dayDate < today) return false;
-  
-        const busy = busyMap[day.date] || [];
   
         const allSlots: string[] = [];
   
@@ -122,66 +130,63 @@ export default function SchedulerCard({
           }
         });
   
-        // ⏰ Se for hoje, remove horários já passados
+        // remove horários passados se for hoje
         if (dayDate.getTime() === today.getTime()) {
           const now = new Date();
-          const currentTime = `${String(now.getHours()).padStart(2, "0")}:${String(
-            now.getMinutes()
-          ).padStart(2, "0")}`;
+          const currentTime = `${String(now.getHours()).padStart(
+            2,
+            "0"
+          )}:${String(now.getMinutes()).padStart(2, "0")}`;
   
-          return allSlots.some(
-            (slot) => !busy.includes(slot) && slot > currentTime
-          );
+          return allSlots.some((slot) => slot > currentTime);
         }
   
-        // 📅 Datas futuras normais
-        return allSlots.some((slot) => !busy.includes(slot));
+        return allSlots.length > 0;
       })
       .map((day) => day.date);
-  }, [busyMap]);
+  }, [selectedCity]);
   
-  
+
   /* 🔹 Horários (DISPONÍVEL + INDISPONÍVEL) */
   const availableTimes = useMemo<TimeSlot[]>(() => {
-    if (!selectedDate) return [];
-
-    const dateKey = selectedDate.toLocaleDateString("en-CA");
-    const day = doctorAvailabilityMock.find((d) => d.date === dateKey);
+    if (!selectedDate || !selectedCity) return [];
+  
+    const cityAvailability = doctorAvailabilityMock.find(
+      (d) => d.city === selectedCity
+    );
+    if (!cityAvailability) return [];
+  
+    const day = cityAvailability.availability.find(
+      (d) => d.date === selectedDate.toISOString().split("T")[0]
+    );
     if (!day) return [];
-
-    const busy = busyMap[dateKey] || [];
+  
+    const busy = busyMap[selectedDate.toISOString().split("T")[0]] || [];
     const slots: TimeSlot[] = [];
-
-    // Verifica se a data selecionada é hoje
+  
     const today = new Date();
     const isToday =
       selectedDate.getDate() === today.getDate() &&
       selectedDate.getMonth() === today.getMonth() &&
       selectedDate.getFullYear() === today.getFullYear();
-
-    // Hora atual em formato HH:MM
+  
     const currentTime = `${String(today.getHours()).padStart(2, "0")}:${String(
       today.getMinutes()
     ).padStart(2, "0")}`;
-
+  
     day.periods.forEach((period) => {
       let [h, m] = period.start.split(":").map(Number);
       const [endH, endM] = period.end.split(":").map(Number);
-
+  
       while (h < endH || (h === endH && m < endM)) {
-        const time = `${String(h).padStart(2, "0")}:${String(m).padStart(
-          2,
-          "0"
-        )}`;
-
-        // Verifica se o horário já passou (se for hoje)
+        const time = `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
         const isPastTime = isToday && time < currentTime;
-
+  
         slots.push({
           time,
           isBooked: busy.includes(time) || isPastTime,
         });
-
+  
         m += 30;
         if (m === 60) {
           m = 0;
@@ -189,9 +194,10 @@ export default function SchedulerCard({
         }
       }
     });
-
+  
     return slots;
-  }, [selectedDate, busyMap]);
+  }, [selectedDate, selectedCity, busyMap]);
+  
 
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);

@@ -8,6 +8,7 @@ import SchedulerCard from "../Scheduler/SchedulerCard";
 
 import { Modal } from "../Modal";
 import { SERVICES } from "../../mocks/services";
+import { clinicAddresses } from "../../mocks/clinicAddresses";
 
 export interface CalendarEvent {
   id: string;
@@ -132,11 +133,12 @@ export const AppointmentForm = () => {
                   required
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 >
-                  <option value="">Selecione o cidade</option>
-                  <option value="Av. Djalma Batista, 946 - Nossa Sra. das Graças, Manaus - AM - 69050-010">
-                    Manaus
-                  </option>
-                  {/* <option value="Itacoatiara">Itacoatiara</option> */}
+                  <option value="">Selecione a cidade</option>
+                  {clinicAddresses.map((clinic) => (
+                    <option key={clinic.id} value={clinic.city}>
+                      {clinic.city}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -170,7 +172,7 @@ export const AppointmentForm = () => {
               </div>
             </div>
 
-            <SchedulerCard key={schedulerKey} onScheduleSelect={setSchedule} />
+            <SchedulerCard key={schedulerKey} selectedCity={formData.city} onScheduleSelect={setSchedule} />
 
             <div>
               <label

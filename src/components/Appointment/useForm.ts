@@ -1,4 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from "react";
+import { ClinicAddress, clinicAddresses } from "../../mocks/clinicAddresses";
 
 interface FormData {
   name: string;
@@ -48,13 +49,37 @@ export const useForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const response = await fetch("https://api-emails-eight.vercel.app/appointments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...formData }),
-    });
+    // ✅ pega o objeto completo do endereço baseado na cidade
+    const selectedClinic: ClinicAddress | undefined = clinicAddresses.find(
+      (clinic) => clinic.city === formData.city
+    );
+
+    if (!selectedClinic) {
+      console.error("Cidade não encontrada no clinicAddresses");
+      setIsSubmitting(false);
+      return;
+    }
+
+      // monta o payload sem a city do formData
+  const { city, ...formWithoutCity } = formData;
+
+    // monta o payload para enviar na rota
+    const payload = {
+      ...formWithoutCity,
+      clinic: selectedClinic, // adiciona o objeto completo do endereço
+    };
+    // "https://api-emails-eight.vercel.app/appointments",
+
+    const response = await fetch(
+      "http://localhost:3333/appointments",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...payload }),
+      }
+    );
 
     const data = await response.json();
 
@@ -83,6 +108,6 @@ export const useForm = () => {
     isSubmitting,
     setSchedule,
     modalMessage,
-    closeModal
+    closeModal,
   };
 };
