@@ -24,7 +24,7 @@ export const useAvailabilityStore = create<AvailabilityState>((set) => ({
   fetchAvailability: async () => {
     set({ isLoading: true });
 
-    const res = await fetch("http://localhost:3333/availability");
+    const res = await fetch("http://api-emails-eight.vercel.app/availability");
     const doctorAvailability = await res.json();
 
     set({ doctorAvailability, isLoading: false });
