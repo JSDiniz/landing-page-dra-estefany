@@ -1,38 +1,26 @@
 import { useState } from "react";
-
 import { motion } from "framer-motion";
-import { useForm } from "./useForm";
 
 import Url from "/logo.svg";
 import SchedulerCard from "../Scheduler/SchedulerCard";
-
 import { Modal } from "../Modal";
+
 import { SERVICES } from "../../mocks/services";
 import { clinicAddresses } from "../../mocks/clinicAddresses";
-
-export interface CalendarEvent {
-  id: string;
-  title: string;
-  start: string;
-  end: string;
-}
+import { useAppointmentForm } from "./useAppointmentForm";
+import { phoneMask } from "../../utils/phoneMask";
 
 export const AppointmentForm = () => {
   const [schedulerKey, setSchedulerKey] = useState(0);
+
   const {
-    formData,
-    handleChange,
+    form,
     handleSubmit,
-    isSubmitting,
     setSchedule,
+    isSubmitting,
     modalMessage,
     closeModal,
-  } = useForm();
-
-  const handleSubmitWithReset = async (e: React.FormEvent) => {
-    await handleSubmit(e);
-    setSchedulerKey((prev) => prev + 1);
-  };
+  } = useAppointmentForm();
 
   const sortedOptions = SERVICES.map((service) => service.title).sort((a, b) =>
     a.localeCompare(b)
@@ -61,77 +49,74 @@ export const AppointmentForm = () => {
             Preencha o formulário abaixo e entraremos em contato em breve.
           </p>
 
-          <form onSubmit={handleSubmitWithReset} className="space-y-6">
+          <form
+            onSubmit={form.handleSubmit(async (data) => {
+              await handleSubmit(data);
+              setSchedulerKey((prev) => prev + 1);
+            })}
+            className="space-y-6"
+          >
+            {/* Nome / Email */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Nome completo
                 </label>
                 <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  {...form.register("name")}
+                  placeholder="Digite seu nome completo"
+                  className="w-full px-4 py-2 border rounded-lg"
                 />
+                {form.formState.errors.name && (
+                  <span className="text-red-500 text-sm">
+                    {form.formState.errors.name.message}
+                  </span>
+                )}
               </div>
+
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   E-mail
                 </label>
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  {...form.register("email")}
+                    placeholder="seuemail@email.com"
+                  className="w-full px-4 py-2 border rounded-lg"
                 />
               </div>
             </div>
 
+            {/* Telefone */}
             <div>
-              <label
-                htmlFor="phone"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Telefone
               </label>
               <input
-                type="tel"
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                {...form.register("phone")}
+                placeholder="(92) 9999-9999"
+                value={form.watch("phone") || ""}
+                onChange={(e) => {
+                  const masked = phoneMask(e.target.value);
+                  form.setValue("phone", masked, { shouldValidate: true });
+                }}
+                className="w-full px-4 py-2 border rounded-lg"
               />
+              {form.formState.errors.phone && (
+                <span className="text-red-500 text-sm">
+                  {form.formState.errors.phone.message}
+                </span>
+              )}
             </div>
 
+            {/* Cidade / Serviço */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="w-full">
-                <label
-                  htmlFor="city"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Cidade
                 </label>
                 <select
-                  id="city"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  {...form.register("city")}
+                  className="w-full px-4 py-2 border rounded-lg"
                 >
                   <option value="">Selecione a cidade</option>
                   {clinicAddresses.map((clinic) => (
@@ -140,63 +125,73 @@ export const AppointmentForm = () => {
                     </option>
                   ))}
                 </select>
+                {form.formState.errors.city && (
+                  <span className="text-sm text-red-500">
+                    {form.formState.errors.city.message}
+                  </span>
+                )}
               </div>
 
-              <div className="w-full">
-                <label
-                  htmlFor="service"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Serviço desejado
                 </label>
                 <select
-                  id="service"
-                  name="service"
-                  value={formData.service}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  {...form.register("service")}
+                  className="w-full px-4 py-2 border rounded-lg"
                 >
                   <option value="">Selecione um serviço</option>
                   <option value="primeira-consulta">Primeira Consulta</option>
                   <option value="reavaliacao">Reavaliação</option>
                   {sortedOptions.map((title) => (
-                    <option
-                      key={title.toLowerCase()}
-                      value={title.toLowerCase()}
-                    >
+                    <option key={title} value={title.toLowerCase()}>
                       {title}
                     </option>
                   ))}
                 </select>
+                {form.formState.errors.service && (
+                  <span className="text-sm text-red-500">
+                    {form.formState.errors.service.message}
+                  </span>
+                )}
               </div>
             </div>
 
-            <SchedulerCard key={schedulerKey} selectedCity={formData.city} onScheduleSelect={setSchedule} />
+            {/* Scheduler */}
+            <SchedulerCard
+              key={schedulerKey}
+              selectedCity={form.watch("city")}
+              onScheduleSelect={setSchedule}
+              dateError={form.formState.errors.date?.message}
+              timeError={form.formState.errors.time?.message}
+            />
 
+            {/* Mensagem */}
             <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Mensagem (opcional)
               </label>
               <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
+                {...form.register("message")}
                 rows={4}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              ></textarea>
+                onInput={(e) => {
+                  const target = e.currentTarget;
+              
+                  target.style.height = "auto";
+                  target.style.height = `${Math.min(target.scrollHeight, 250)}px`;
+                }}
+                placeholder="Escreva uma mensagem (opcional)"
+                className="w-full px-4 py-2 border rounded-lg"
+              />
             </div>
 
+            {/* Botão */}
             <motion.button
               type="submit"
               disabled={isSubmitting}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors disabled:opacity-50"
+              className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold disabled:opacity-50"
             >
               {isSubmitting ? "Enviando..." : "Agendar Consulta"}
             </motion.button>

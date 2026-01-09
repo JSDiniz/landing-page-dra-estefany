@@ -17,12 +17,16 @@ interface TimeSlot {
 
 interface SchedulerCardProps {
   selectedCity: string;
-  onScheduleSelect: (date: Date, time: string) => void;
+  onScheduleSelect: (date: Date, time?: string) => void;
+  dateError?: string;
+  timeError?: string;
 }
 
 export default function SchedulerCard({
   selectedCity,
   onScheduleSelect,
+  dateError,
+  timeError,
 }: SchedulerCardProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
@@ -36,7 +40,8 @@ export default function SchedulerCard({
   /* 🔹 Busca eventos do Google Calendar */
   useEffect(() => {
     fetch(
-      "https://api-emails-eight.vercel.app/appointments?calendarId=dra.estefanyoliveira@gmail.com"
+      "http://localhost:3333/appointments?calendarId=juniosantosdiniz@gmail.com"
+      // "https://api-emails-eight.vercel.app/appointments?calendarId=dra.estefanyoliveira@gmail.com"
     )
       .then((res) => res.json())
       .then(setEvents);
@@ -95,29 +100,29 @@ export default function SchedulerCard({
   /* 🔹 Datas disponíveis */
   const availableDates = useMemo(() => {
     if (!selectedCity) return [];
-  
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-  
+
     // pega só a disponibilidade do médico da cidade selecionada
     const cityAvailability = doctorAvailabilityMock.find(
       (d) => d.city === selectedCity
     );
     if (!cityAvailability) return [];
-  
+
     return cityAvailability.availability
       .filter((day) => {
         const dayDate = new Date(`${day.date}T00:00:00`);
-  
+
         // remove datas passadas
         if (dayDate < today) return false;
-  
+
         const allSlots: string[] = [];
-  
+
         day.periods.forEach((p) => {
           let [h, m] = p.start.split(":").map(Number);
           const [endH, endM] = p.end.split(":").map(Number);
-  
+
           while (h < endH || (h === endH && m < endM)) {
             allSlots.push(
               `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`
@@ -129,7 +134,7 @@ export default function SchedulerCard({
             }
           }
         });
-  
+
         // remove horários passados se for hoje
         if (dayDate.getTime() === today.getTime()) {
           const now = new Date();
@@ -137,56 +142,58 @@ export default function SchedulerCard({
             2,
             "0"
           )}:${String(now.getMinutes()).padStart(2, "0")}`;
-  
+
           return allSlots.some((slot) => slot > currentTime);
         }
-  
+
         return allSlots.length > 0;
       })
       .map((day) => day.date);
   }, [selectedCity]);
-  
 
   /* 🔹 Horários (DISPONÍVEL + INDISPONÍVEL) */
   const availableTimes = useMemo<TimeSlot[]>(() => {
     if (!selectedDate || !selectedCity) return [];
-  
+
     const cityAvailability = doctorAvailabilityMock.find(
       (d) => d.city === selectedCity
     );
     if (!cityAvailability) return [];
-  
+
     const day = cityAvailability.availability.find(
       (d) => d.date === selectedDate.toISOString().split("T")[0]
     );
     if (!day) return [];
-  
+
     const busy = busyMap[selectedDate.toISOString().split("T")[0]] || [];
     const slots: TimeSlot[] = [];
-  
+
     const today = new Date();
     const isToday =
       selectedDate.getDate() === today.getDate() &&
       selectedDate.getMonth() === today.getMonth() &&
       selectedDate.getFullYear() === today.getFullYear();
-  
+
     const currentTime = `${String(today.getHours()).padStart(2, "0")}:${String(
       today.getMinutes()
     ).padStart(2, "0")}`;
-  
+
     day.periods.forEach((period) => {
       let [h, m] = period.start.split(":").map(Number);
       const [endH, endM] = period.end.split(":").map(Number);
-  
+
       while (h < endH || (h === endH && m < endM)) {
-        const time = `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+        const time = `${String(h).padStart(2, "0")}:${String(m).padStart(
+          2,
+          "0"
+        )}`;
         const isPastTime = isToday && time < currentTime;
-  
+
         slots.push({
           time,
           isBooked: busy.includes(time) || isPastTime,
         });
-  
+
         m += 30;
         if (m === 60) {
           m = 0;
@@ -194,15 +201,17 @@ export default function SchedulerCard({
         }
       }
     });
-  
+
     return slots;
   }, [selectedDate, selectedCity, busyMap]);
-  
 
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
     setSelectedTime(null);
     setShowCalendar(false);
+
+    // 🔥 AVISA O FORM QUE A DATA FOI ESCOLHIDA
+    onScheduleSelect(date);
   };
 
   const handleTimeSelect = (time: string) => {
@@ -236,6 +245,8 @@ export default function SchedulerCard({
           <Calendar className="w-5 h-5 text-gray-400" />
         </button>
 
+        {dateError && <p className="text-sm text-red-500 mt-1">{dateError}</p>}
+
         {showCalendar && (
           <div className="absolute z-20 mt-3 w-full">
             <CalendarPicker
@@ -265,6 +276,8 @@ export default function SchedulerCard({
           {selectedTime || "Selecione um horário"}
           <Clock className="w-5 h-5 text-gray-400" />
         </button>
+
+        {timeError && <p className="text-sm text-red-500 mt-1">{timeError}</p>}
 
         {showTimes && (
           <div className="absolute z-20 mt-3 w-full">

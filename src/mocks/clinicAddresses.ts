@@ -22,7 +22,7 @@ export const clinicAddresses: ClinicAddress[] = [
     {
       id: 2,
       street: "Rua Exemplo",
-      number: "123",
+      number: "2615",
       neighborhood: "Centro",
       city: "Itacoatiara",
       state: "AM",
