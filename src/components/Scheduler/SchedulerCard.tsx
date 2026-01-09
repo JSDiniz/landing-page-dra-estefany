@@ -2,7 +2,8 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { Calendar, Clock } from "lucide-react";
 import CalendarPicker from "./CalendarPicker";
 import TimeSlots from "./TimeSlots";
-import { doctorAvailabilityMock } from "../../mocks/doctorAvailability.mock";
+
+import { useAvailabilityStore } from "../../stores/useAvailabilityStore";
 
 interface GoogleEvent {
   id: string;
@@ -28,20 +29,26 @@ export default function SchedulerCard({
   dateError,
   timeError,
 }: SchedulerCardProps) {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [showCalendar, setShowCalendar] = useState(false);
-  const [showTimes, setShowTimes] = useState(false);
-  const [events, setEvents] = useState<GoogleEvent[]>([]);
+  const doctorAvailability = useAvailabilityStore(
+    (state) => state.doctorAvailability
+  );
+
+  const timeRef = useRef<HTMLDivElement>(null);
 
   const calendarRef = useRef<HTMLDivElement>(null);
-  const timeRef = useRef<HTMLDivElement>(null);
+
+  const [showTimes, setShowTimes] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
+
+  const [events, setEvents] = useState<GoogleEvent[]>([]);
+
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
 
   /* 🔹 Busca eventos do Google Calendar */
   useEffect(() => {
     fetch(
-      "http://localhost:3333/appointments?calendarId=juniosantosdiniz@gmail.com"
-      // "https://api-emails-eight.vercel.app/appointments?calendarId=dra.estefanyoliveira@gmail.com"
+      "https://api-emails-eight.vercel.app/appointments?calendarId=dra.estefanyoliveira@gmail.com"
     )
       .then((res) => res.json())
       .then(setEvents);
@@ -105,7 +112,7 @@ export default function SchedulerCard({
     today.setHours(0, 0, 0, 0);
 
     // pega só a disponibilidade do médico da cidade selecionada
-    const cityAvailability = doctorAvailabilityMock.find(
+    const cityAvailability = doctorAvailability.find(
       (d) => d.city === selectedCity
     );
     if (!cityAvailability) return [];
@@ -155,7 +162,7 @@ export default function SchedulerCard({
   const availableTimes = useMemo<TimeSlot[]>(() => {
     if (!selectedDate || !selectedCity) return [];
 
-    const cityAvailability = doctorAvailabilityMock.find(
+    const cityAvailability = doctorAvailability.find(
       (d) => d.city === selectedCity
     );
     if (!cityAvailability) return [];

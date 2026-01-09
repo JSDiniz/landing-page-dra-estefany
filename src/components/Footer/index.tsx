@@ -1,5 +1,8 @@
-
+import { clinicAddresses } from "../../mocks/clinicAddresses";
 import { SERVICES } from "../../mocks/services";
+
+import { getGoogleMapsLink } from "../../utils/googleMaps";
+
 import { FooterLinks } from "./FooterLinks";
 import { SocialLinks } from "./SocialLinks";
 
@@ -11,8 +14,8 @@ export const Footer = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* LOGO + DESCRIÇÃO */}
-          <div>
-            <div className="flex items-center space-x-2 mb-4">
+          <div className="space-y-3">
+            <div className="flex items-center space-x-2">
               <img src={Logo} className="w-9 h-9" />
               <span className="text-lg md:text-xl font-bold">
                 Dra. Estefany
@@ -38,26 +41,32 @@ export const Footer = () => {
             links={[
               { label: "Início", href: "#inicio" },
               { label: "Sobre Nós", href: "#sobre" },
+              { label: "Serviços", href: "#servicos" },
               { label: "FAQ", href: "#faq" },
-              { label: "Contato", href: "#contato" },
             ]}
           />
 
           {/* CONTATO */}
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Contato</h3>
+          <div className="space-y-3">
+            <h3 className="font-semibold text-lg">Contato</h3>
 
-            <a
-              href="https://www.google.com/maps/place/Av.+Djalma+Batista,+946+-+Nossa+Sra.+das+Gra%C3%A7as,+Manaus+-+AM,+69050-010/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 mb-2 block"
-            >
-              Av. Djalma Batista, 946 - Nossa Sra. das Graças, 69050-010
-            </a>
-
-            <p className="text-gray-400 mb-2">Manaus - AM</p>
-            <p className="text-gray-400 mb-4">(92) 9 8618-5420</p>
+            <ul className="space-y-3">
+              {clinicAddresses.map((clinic) => (
+                <li key={clinic.id}>
+                  <a
+                    href={getGoogleMapsLink(clinic)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className=" block text-gray-400  hover:text-white transition"
+                  >
+                    <div>
+                      {clinic.street}, {clinic.number} – {clinic.neighborhood},{" "}
+                      {clinic.city} – {clinic.state}, {clinic.zip}
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
 
             <SocialLinks />
           </div>

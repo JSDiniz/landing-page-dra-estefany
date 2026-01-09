@@ -9,8 +9,12 @@ import { AppointmentForm } from '../components/Appointment';
 import { Footer } from '../components/Footer';
 import { Testimonials } from '../components/Testimonials';
 import { SEO } from '../components/SEO';
+import { useInitData } from '../hooks/useInitData';
 
 function App() {
+
+  useInitData();
+  
   return (
     <>
       <SEO />

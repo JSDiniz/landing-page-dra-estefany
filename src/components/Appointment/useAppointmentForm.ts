@@ -61,7 +61,7 @@ export function useAppointmentForm() {
     };
 
     try {
-      const response = await fetch("http://localhost:3333/appointments", {
+      const response = await fetch("http://api-emails-eight.vercel.app/appointments", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

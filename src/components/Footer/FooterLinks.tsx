@@ -10,8 +10,8 @@ interface FooterLinksProps {
 
 export const FooterLinks = ({ title, links }: FooterLinksProps) => {
   return (
-    <div>
-      <h3 className="font-semibold text-lg mb-4">{title}</h3>
+    <div className="space-y-3">
+      <h3 className="font-semibold text-lg">{title}</h3>
       <ul className="space-y-2">
         {links.map((link, index) => (
           <li key={index}>
