@@ -12,7 +12,7 @@ export const SocialLinks = () => {
       </a> */}
       <a
         target="_blank"
-        href="https://www.instagram.com/dra.estefany.oliveira/"
+        href="https://www.instagram.com/dra.estefanygoliveira/"
         className="text-gray-400 hover:text-purple-400 transition-colors"
         aria-label="Instagram"
       >
