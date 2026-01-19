@@ -9,6 +9,13 @@ import {
 
 import { ClinicAddress, clinicAddresses } from "../../mocks/clinicAddresses";
 
+type ModalType = "success" | "error" | "warning" | "info";
+
+interface ModalState {
+  message: string;
+  type: ModalType;
+}
+
 export function useAppointmentForm() {
   const form = useForm<AppointmentFormData>({
     resolver: zodResolver(appointmentSchema),
@@ -25,7 +32,7 @@ export function useAppointmentForm() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [modalMessage, setModalMessage] = useState<string | null>(null);
+  const [modalMessage, setModalMessage] = useState<ModalState | null>(null);
 
   // 🔹 RECEBE DATA E HORA DO SchedulerCard
   const setSchedule = (date: Date, time?: string) => {
@@ -48,7 +55,10 @@ export function useAppointmentForm() {
     );
 
     if (!selectedClinic) {
-      setModalMessage("Cidade não encontrada.");
+      setModalMessage({
+        message: "Cidade não encontrada.",
+        type: "error",
+      });
       setIsSubmitting(false);
       return;
     }
@@ -61,7 +71,7 @@ export function useAppointmentForm() {
     };
 
     try {
-      const response = await fetch("http://api-emails-eight.vercel.app/appointments", {
+      const response = await fetch("https://api-emails-eight.vercel.app/appointments", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,10 +80,27 @@ export function useAppointmentForm() {
       });
 
       const result = await response.json();
-      setModalMessage(result.message || "Agendamento realizado com sucesso");
+
+      // 🔴 SE A API RETORNAR ERRO, PARA A EXECUÇÃO AQUI
+      if (!response.ok) {
+        setModalMessage({
+          message: result.message || "Erro ao realizar agendamento.",
+          type: "error",
+        });
+
+        return; // ⛔ IMPORTANTE
+      }
+
+      setModalMessage({
+        message: result.message || "Agendamento realizado com sucesso.",
+        type: "success",
+      });
       form.reset();
     } catch (error) {
-      setModalMessage("Erro ao enviar formulário.");
+      setModalMessage({
+        message: "Erro ao realizar agendamento.",
+        type: "error",
+      });
     } finally {
       setIsSubmitting(false);
     }

@@ -5,7 +5,7 @@ import Url from "/logo.svg";
 import SchedulerCard from "../Scheduler/SchedulerCard";
 import { Modal } from "../Modal";
 
-import { SERVICES } from "../../mocks/services";
+import { servicesOptions } from "../../mocks/services";
 import { clinicAddresses } from "../../mocks/clinicAddresses";
 import { useAppointmentForm } from "./useAppointmentForm";
 import { phoneMask } from "../../utils/phoneMask";
@@ -21,10 +21,6 @@ export const AppointmentForm = () => {
     modalMessage,
     closeModal,
   } = useAppointmentForm();
-
-  const sortedOptions = SERVICES.map((service) => service.title).sort((a, b) =>
-    a.localeCompare(b)
-  );
 
   return (
     <section id="contato" className="py-20 bg-white">
@@ -80,7 +76,7 @@ export const AppointmentForm = () => {
                 </label>
                 <input
                   {...form.register("email")}
-                    placeholder="seuemail@email.com"
+                  placeholder="seuemail@email.com"
                   className="w-full px-4 py-2 border rounded-lg"
                 />
               </div>
@@ -141,13 +137,16 @@ export const AppointmentForm = () => {
                   className="w-full px-4 py-2 border rounded-lg"
                 >
                   <option value="">Selecione um serviço</option>
-                  <option value="primeira-consulta">Primeira Consulta</option>
-                  <option value="reavaliacao">Reavaliação</option>
-                  {sortedOptions.map((title) => (
-                    <option key={title} value={title.toLowerCase()}>
-                      {title}
+
+                  {servicesOptions.map((service) =>
+
+                    <option
+                      key={service.id}
+                      value={service.value}
+                    >
+                      {service.label}
                     </option>
-                  ))}
+                  )}
                 </select>
                 {form.formState.errors.service && (
                   <span className="text-sm text-red-500">
@@ -176,7 +175,7 @@ export const AppointmentForm = () => {
                 rows={4}
                 onInput={(e) => {
                   const target = e.currentTarget;
-              
+
                   target.style.height = "auto";
                   target.style.height = `${Math.min(target.scrollHeight, 250)}px`;
                 }}
@@ -199,7 +198,7 @@ export const AppointmentForm = () => {
         </motion.div>
       </div>
 
-      {modalMessage && <Modal message={modalMessage} onClose={closeModal} />}
+      {modalMessage && <Modal message={modalMessage.message} type={modalMessage.type} onClose={closeModal} />}
     </section>
   );
 };
