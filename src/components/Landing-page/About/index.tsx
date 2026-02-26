@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 
 import Url from '/logo.svg';
-import Dra from '../../assets/About/dra.estefany-1.svg';
+import Dra from '../../../assets/About/dra.estefany-1.svg';
 
 export const About = () => {
 

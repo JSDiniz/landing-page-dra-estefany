@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 import Url from '/logo.svg';
-import Vector from './../../assets/Services/vector.svg';
+import Vector from '../../../assets/Services/vector.svg';
 
 import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from 'embla-carousel-autoplay'
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { SERVICES } from '../../mocks/services';
+import { SERVICES } from '../../../mocks/services';
 
 export const Services = () => {
   const [select, setSelect] = useState(0);

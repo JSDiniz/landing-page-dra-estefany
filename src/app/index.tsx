@@ -1,13 +1,13 @@
 import { Header } from '../components/Header';
-import { Hero } from '../components/Hero';
-import { About } from '../components/About';
-import { Services } from '../components/Services';
-import { Booking } from '../components/Booking';
-import { Gallery } from '../components/Gallery';
-import { FAQ } from '../components/FAQ';
-import { AppointmentForm } from '../components/Appointment';
+import { Hero } from '../components/Landing-page/Hero';
+import { About } from '../components/Landing-page/About';
+import { Services } from '../components/Landing-page/Services';
+import { Booking } from '../components/Landing-page/Booking';
+import { Gallery } from '../components/Landing-page/Gallery';
+import { FAQ } from '../components/Landing-page/FAQ';
+import { AppointmentForm } from '../components/Landing-page/Appointment';
 import { Footer } from '../components/Footer';
-import { Testimonials } from '../components/Testimonials';
+import { Testimonials } from '../components/Landing-page/Testimonials';
 import { useInitData } from '../hooks/useInitData';
 
 function App() {

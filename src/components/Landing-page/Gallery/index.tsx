@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 
 import { GalleryGrid } from './GalleryGrid';
-import { galleryData } from '../../mocks/galleryData';
+import { galleryData } from '../../../mocks/galleryData';
 
 import Url from '/logo.svg';
 

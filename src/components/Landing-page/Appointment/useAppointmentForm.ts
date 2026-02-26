@@ -5,9 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   AppointmentFormData,
   appointmentSchema,
-} from "../../schemas/appointment.schema";
+} from "../../../schemas/appointment.schema";
 
-import { ClinicAddress, clinicAddresses } from "../../mocks/clinicAddresses";
+import { ClinicAddress, clinicAddresses } from "../../../mocks/clinicAddresses";
 
 type ModalType = "success" | "error" | "warning" | "info";
 

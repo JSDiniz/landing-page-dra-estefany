@@ -2,13 +2,13 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 import Url from "/logo.svg";
-import SchedulerCard from "../Scheduler/SchedulerCard";
-import { Modal } from "../Modal";
+import SchedulerCard from "../../Scheduler/SchedulerCard";
+import { Modal } from "../../Modal";
 
-import { servicesOptions } from "../../mocks/services";
-import { clinicAddresses } from "../../mocks/clinicAddresses";
+import { servicesOptions } from "../../../mocks/services";
+import { clinicAddresses } from "../../../mocks/clinicAddresses";
 import { useAppointmentForm } from "./useAppointmentForm";
-import { phoneMask } from "../../utils/phoneMask";
+import { phoneMask } from "../../../utils/phoneMask";
 
 export const AppointmentForm = () => {
   const [schedulerKey, setSchedulerKey] = useState(0);

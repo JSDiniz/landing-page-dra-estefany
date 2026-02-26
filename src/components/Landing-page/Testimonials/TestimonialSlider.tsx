@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { testimonialData } from '../../mocks/testimonialData';
+import { testimonialData } from '../../../mocks/testimonialData';
 import { TestimonialCard } from './TestimonialCard';
 
 export const TestimonialSlider = () => {

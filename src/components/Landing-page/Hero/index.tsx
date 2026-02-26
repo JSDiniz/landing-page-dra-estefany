@@ -1,15 +1,15 @@
 import { motion } from "framer-motion";
 
-import { SocialLinks } from "../Footer/SocialLinks";
+import { SocialLinks } from "../../Footer/SocialLinks";
 
-import Decore from "./../../assets/Hero/decore.svg";
-import Scanner from "./../../assets/Hero/scanner.svg";
-import Dra from "./../../assets/Hero/dra.estefany.svg";
-import Calendar from "./../../assets/Hero/calendar.svg";
-import Messages from "./../../assets/Hero/messages.svg";
-import Component from "./../../assets/Hero/component.svg";
-import ToothPain from "./../../assets/Hero/tooth_pain.svg";
-import CrownAndBridge from "./../../assets/Hero/crownAndBridge.svg";
+import Decore from "./../../../assets/Hero/decore.svg";
+import Scanner from "./../../../assets/Hero/scanner.svg";
+import Dra from "./../../../assets/Hero/dra.estefany.svg";
+import Calendar from "./../../../assets/Hero/calendar.svg";
+import Messages from "./../../../assets/Hero/messages.svg";
+import Component from "./../../../assets/Hero/component.svg";
+import ToothPain from "./../../../assets/Hero/tooth_pain.svg";
+import CrownAndBridge from "./../../../assets/Hero/crownAndBridge.svg";
 
 export const Hero = () => {
 
