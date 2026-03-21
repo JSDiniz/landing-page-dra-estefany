@@ -1,7 +1,8 @@
-import { clinicAddresses } from "../../mocks/clinicAddresses";
-import { SERVICES } from "../../mocks/services";
+import { Link, useLocation } from 'react-router-dom';
 
+import { SERVICES } from "../../mocks/services";
 import { getGoogleMapsLink } from "../../utils/googleMaps";
+import { clinicAddresses } from "../../mocks/clinicAddresses";
 
 import { FooterLinks } from "./FooterLinks";
 import { SocialLinks } from "./SocialLinks";
@@ -9,12 +10,26 @@ import { SocialLinks } from "./SocialLinks";
 import Logo from "/logo.svg";
 
 export const Footer = () => {
+  const location = useLocation();
+
+  const isHome = location.pathname === '/';
+
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isHome) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <footer className="bg-gray-900 text-white py-12">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* LOGO + DESCRIÇÃO */}
-          <div className="space-y-3">
+          <Link to="/" onClick={handleLogoClick} className="space-y-3">
             <div className="flex items-center space-x-2">
               <img src={Logo} className="w-9 h-9" />
               <span className="text-lg md:text-xl font-bold">
@@ -24,7 +39,7 @@ export const Footer = () => {
             <p className="text-gray-400">
               Cuidando do seu sorriso com excelência e dedicação.
             </p>
-          </div>
+          </Link>
 
           {/* SERVIÇOS (VINDO DO SERVICES) */}
           <FooterLinks
@@ -34,6 +49,7 @@ export const Footer = () => {
               href: "#servicos",
             }))}
           />
+
 
           {/* LINKS ÚTEIS */}
           <FooterLinks
