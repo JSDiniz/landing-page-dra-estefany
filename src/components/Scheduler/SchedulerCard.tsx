@@ -80,8 +80,8 @@ export default function SchedulerCard({
       const start = new Date(event.start);
       const end = new Date(event.end);
 
-      const dateKey = start.toLocaleDateString("en-CA"); // YYYY-MM-DD
-      let current = new Date(start);
+      const dateKey = start.toLocaleDateString("en-CA");
+      const current = new Date(start);
 
       while (current < end) {
         const h = current.getHours();
@@ -156,7 +156,7 @@ export default function SchedulerCard({
         return allSlots.length > 0;
       })
       .map((day) => day.date);
-  }, [selectedCity]);
+  }, [selectedCity, doctorAvailability]);
 
   /* 🔹 Horários (DISPONÍVEL + INDISPONÍVEL) */
   const availableTimes = useMemo<TimeSlot[]>(() => {
@@ -210,7 +210,7 @@ export default function SchedulerCard({
     });
 
     return slots;
-  }, [selectedDate, selectedCity, busyMap]);
+  }, [selectedDate, selectedCity, busyMap, doctorAvailability]);
 
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
