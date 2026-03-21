@@ -63,6 +63,7 @@ export function useAppointmentForm() {
       return;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { city, ...formWithoutCity } = data;
 
     const payload = {
@@ -96,6 +97,7 @@ export function useAppointmentForm() {
         type: "success",
       });
       form.reset();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setModalMessage({
         message: "Erro ao realizar agendamento.",
