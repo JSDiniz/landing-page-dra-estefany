@@ -26,6 +26,10 @@ export const SERVICES = [
       paragraph_2:
         'Agende sua consulta e cuide do seu sorriso com quem entende do assunto!',
       url: Prophylaxis,
+      button: {
+        url: "",
+        title: ""
+      }
     },
   },
 
@@ -43,6 +47,10 @@ export const SERVICES = [
       paragraph_2:
         'Não deixe que dentes danificados prejudiquem sua confiança ou saúde bucal. Agende uma avaliação e descubra como a restauração pode devolver a harmonia ao seu sorriso!',
       url: Restoration,
+      button: {
+        url: "",
+        title: ""
+      }
     },
   },
   {
@@ -59,6 +67,10 @@ export const SERVICES = [
       paragraph_2:
         'Invista no seu sorriso e na sua saúde bucal com um tratamento ortodôntico de qualidade. Agende sua consulta e descubra a solução ideal para o seu caso!',
       url: OrthodonticAppliance,
+      button: {
+        url: "",
+        title: ""
+      }
     },
   },
   {
@@ -75,6 +87,10 @@ export const SERVICES = [
       paragraph_2:
         'Se você está com dor de dente ou suspeita de infecção, agende uma consulta e evite complicações futuras com o tratamento de canal. Sua saúde bucal merece o melhor cuidado',
       url: RootCanalTreatment,
+      button: {
+        url: "",
+        title: ""
+      }
     },
   },
   {
@@ -91,6 +107,14 @@ export const SERVICES = [
       paragraph_2:
         'Com resultados visíveis e duradouros, o clareamento dental melhora a autoestima e transforma o sorriso de forma rápida e confortável. Agende sua consulta e descubra como conquistar um sorriso mais branco e confiante!',
       url: DentalCrown,
+      // button: {
+      //   url: "/clareamento-dental-caseiro",
+      //   title: "Veja o Passo a Passo"
+      // }
+      button: {
+        url: "",
+        title: ""
+      }
     },
   },
   {
@@ -107,6 +131,10 @@ export const SERVICES = [
       paragraph_2:
         'Com um processo preciso e personalizado, você pode recuperar a estética do seu sorriso e melhorar sua saúde bucal de forma prática e eficaz. Agende sua consulta e descubra como as próteses dentárias podem transformar sua vida!',
       url: Prostheses,
+      button: {
+        url: "",
+        title: ""
+      }
     },
   },
   {
@@ -123,10 +151,13 @@ export const SERVICES = [
       paragraph_2:
         'Agende uma consulta e descubra como os implantes dentários podem transformar seu sorriso, devolvendo-lhe a segurança e a qualidade de vida que você merece!',
       url: Implants,
+      button: {
+        url: "",
+        title: ""
+      }
     },
   }
 ];
-
 
 export const servicesOptions = [
   {
@@ -183,6 +214,44 @@ export const servicesOptions = [
     id: "11",
     label: "Tratamento de Canal",
     value: "tratamento-de-canal",
+  },
+  {
+    id: "12",
+    label: "Implante – Cirurgia",
+    value: "implante-cirurgia",
+  },
+  {
+    id: "13",
+    label: "Implante – Avaliação",
+    value: "implante-avaliacao",
+  }
+];
+
+export const servicesOptionsItacoatiara = [
+  {
+    id: "1",
+    label: "Primeira Consulta",
+    value: "primeira-consulta",
+  },
+  {
+    id: "2",
+    label: "Reavaliação",
+    value: "reavaliacao",
+  },
+  {
+    id: "3",
+    label: "Retorno",
+    value: "retorno",
+  },
+  {
+    id: "6",
+    label: "Aparelho – Manutenção",
+    value: "aparelho-manutencao",
+  },
+  {
+    id: "7",
+    label: "Aparelho – Instalação",
+    value: "aparelho-instalacao",
   },
   {
     id: "12",
