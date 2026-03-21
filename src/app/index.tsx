@@ -1,32 +1,18 @@
-import { Header } from '../components/Header';
-import { Hero } from '../components/Landing-page/Hero';
-import { About } from '../components/Landing-page/About';
-import { Services } from '../components/Landing-page/Services';
-import { Booking } from '../components/Landing-page/Booking';
-import { Gallery } from '../components/Landing-page/Gallery';
-import { FAQ } from '../components/Landing-page/FAQ';
-import { AppointmentForm } from '../components/Landing-page/Appointment';
-import { Footer } from '../components/Footer';
-import { Testimonials } from '../components/Landing-page/Testimonials';
+
+import { BrowserRouter } from 'react-router-dom';
 import { useInitData } from '../hooks/useInitData';
+import { AppRoutes } from '../routes';
+import { ScrollToTop } from '../components/ScrollToTop';
 
 function App() {
 
   useInitData();
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      <Hero />
-      <About />
-      <Services />
-      <Booking />
-      <Gallery />
-      <FAQ />
-      <Testimonials />
-      <AppointmentForm />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <ScrollToTop />
+      <AppRoutes />
+    </BrowserRouter>
   );
 }
 
