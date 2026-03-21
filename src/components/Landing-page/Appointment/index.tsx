@@ -5,7 +5,7 @@ import Url from "/logo.svg";
 import SchedulerCard from "../../Scheduler/SchedulerCard";
 import { Modal } from "../../Modal";
 
-import { servicesOptions } from "../../../mocks/services";
+import { servicesOptions, servicesOptionsItacoatiara } from "../../../mocks/services";
 import { clinicAddresses } from "../../../mocks/clinicAddresses";
 import { useAppointmentForm } from "./useAppointmentForm";
 import { phoneMask } from "../../../utils/phoneMask";
@@ -21,6 +21,8 @@ export const AppointmentForm = () => {
     modalMessage,
     closeModal,
   } = useAppointmentForm();
+
+  const selectedCity = form.watch("city");
 
   return (
     <section id="contato" className="py-20 bg-white">
@@ -89,7 +91,7 @@ export const AppointmentForm = () => {
               </label>
               <input
                 {...form.register("phone")}
-                placeholder="(92) 9999-9999"
+                placeholder="(92) 9 9999-9999"
                 value={form.watch("phone") || ""}
                 onChange={(e) => {
                   const masked = phoneMask(e.target.value);
@@ -138,15 +140,14 @@ export const AppointmentForm = () => {
                 >
                   <option value="">Selecione um serviço</option>
 
-                  {servicesOptions.map((service) =>
-
-                    <option
-                      key={service.id}
-                      value={service.value}
-                    >
+                  {(selectedCity === "Itacoatiara"
+                    ? servicesOptionsItacoatiara
+                    : servicesOptions
+                  ).map((service) => (
+                    <option key={service.id} value={service.value}>
                       {service.label}
                     </option>
-                  )}
+                  ))}
                 </select>
                 {form.formState.errors.service && (
                   <span className="text-sm text-red-500">
