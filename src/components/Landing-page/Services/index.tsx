@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 import Url from '/logo.svg';
 import Vector from '../../../assets/Services/vector.svg';
 
-import useEmblaCarousel from "embla-carousel-react"
-import Autoplay from 'embla-carousel-autoplay'
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { SERVICES } from '../../../mocks/services';
+
+import Autoplay from 'embla-carousel-autoplay'
+import useEmblaCarousel from "embla-carousel-react"
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
 
 export const Services = () => {
   const [select, setSelect] = useState(0);
@@ -114,11 +117,9 @@ export const Services = () => {
 
             </div>
 
-
             <button className='bg-white flex items-center justify-center rounded-full shadow-lg w-10 h-10 absolute left-1 -translate-y-1/2 -translate-x-1/2 top-1/2' onClick={scrollPrev}>
               <ChevronLeft className='w-6 h-6 text-gray-600' />
             </button>
-
 
             <button className='bg-white flex items-center justify-center rounded-full shadow-lg w-10 h-10 absolute -right-8 -translate-y-1/2 -translate-x-1/2 top-1/2' onClick={scrollNext}>
               <ChevronRight className='w-6 h-6 text-gray-600' />
@@ -156,6 +157,16 @@ export const Services = () => {
                   {SERVICES[select].content?.paragraph_2}
                 </p>
               )}
+
+              {SERVICES[select].content.button.url &&
+                <Link to={SERVICES[select].content.button.url}
+                  style={{ backgroundColor: SERVICES[select].cor }}
+                  className="justify-self-start text-gray-600 hover:text-gray-800 hover:border-gray-800 border px-8 py-3 rounded-full font-semibold transition-colors"
+                >
+                  {SERVICES[select].content.button.title}
+                </Link>
+              }
+
             </motion.div>
           </div>
 
