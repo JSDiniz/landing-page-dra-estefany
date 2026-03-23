@@ -194,6 +194,8 @@ Este projeto é privado e de propriedade da Dra. Estefany Oliveira.
 
 ---
 
-Desenvolvido com ❤️ para cuidar do seu sorriso
+## 👤 Autor
+
+Junielson S. Diniz
 
 
