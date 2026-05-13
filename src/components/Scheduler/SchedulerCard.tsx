@@ -4,6 +4,7 @@ import CalendarPicker from "./CalendarPicker";
 import TimeSlots from "./TimeSlots";
 
 import { useAvailabilityStore } from "../../stores/useAvailabilityStore";
+import { API_URL } from "../../config/api";
 
 interface GoogleEvent {
   id: string;
@@ -47,9 +48,7 @@ export default function SchedulerCard({
 
   /* 🔹 Busca eventos do Google Calendar */
   useEffect(() => {
-    fetch(
-      "https://api-emails-eight.vercel.app/appointments?calendarId=dra.estefanyoliveira@gmail.com"
-    )
+    fetch(`${API_URL}/appointments?calendarId=dra.estefanyoliveira@gmail.com`)
       .then((res) => res.json())
       .then(setEvents);
   }, []);

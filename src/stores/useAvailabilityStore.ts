@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { API_URL } from "../config/api";
 
 export type DoctorAvailability = {
   city: string;
@@ -24,7 +25,7 @@ export const useAvailabilityStore = create<AvailabilityState>((set) => ({
   fetchAvailability: async () => {
     set({ isLoading: true });
 
-    const res = await fetch("http://api-emails-eight.vercel.app/availability");
+    const res = await fetch(`${API_URL}/availability`);
     const doctorAvailability = await res.json();
 
     set({ doctorAvailability, isLoading: false });

@@ -1,0 +1,1 @@
+export const API_URL = "https://api-emails-eight.vercel.app";

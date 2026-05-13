@@ -8,6 +8,7 @@ import {
 } from "../../../schemas/appointment.schema";
 
 import { ClinicAddress, clinicAddresses } from "../../../mocks/clinicAddresses";
+import { API_URL } from "../../../config/api";
 
 type ModalType = "success" | "error" | "warning" | "info";
 
@@ -72,7 +73,7 @@ export function useAppointmentForm() {
     };
 
     try {
-      const response = await fetch("https://api-emails-eight.vercel.app/appointments", {
+      const response = await fetch(`${API_URL}/appointments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
