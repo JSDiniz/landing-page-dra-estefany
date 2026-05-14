@@ -30,9 +30,15 @@ export default function SchedulerCard({
   dateError,
   timeError,
 }: SchedulerCardProps) {
+
+  /* Intervalo por cidade */
+  const slotInterval = selectedCity === "Itacoatiara" ? 40 : 30;
+
   const doctorAvailability = useAvailabilityStore(
     (state) => state.doctorAvailability
   );
+
+  console.log("doctorAvailability -> ", doctorAvailability)
 
   const timeRef = useRef<HTMLDivElement>(null);
 
@@ -46,14 +52,14 @@ export default function SchedulerCard({
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
 
-  /* 🔹 Busca eventos do Google Calendar */
+  /* Busca eventos do Google Calendar */
   useEffect(() => {
     fetch(`${API_URL}/appointments?calendarId=dra.estefanyoliveira@gmail.com`)
       .then((res) => res.json())
       .then(setEvents);
   }, []);
 
-  /* 🔹 Fecha dropdown ao clicar fora */
+  /* Fecha dropdown ao clicar fora */
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (
@@ -71,7 +77,35 @@ export default function SchedulerCard({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  /* 🔹 Mapa de horários ocupados (timezone corrigido) */
+  /* Função utilitária para gerar slots */
+  const generateSlots = (
+    start: string,
+    end: string,
+    interval: number
+  ) => {
+    const slots: string[] = [];
+
+    const [startH, startM] = start.split(":").map(Number);
+    const [endH, endM] = end.split(":").map(Number);
+
+    let currentMinutes = startH * 60 + startM;
+    const endMinutes = endH * 60 + endM;
+
+    while (currentMinutes < endMinutes) {
+      const h = Math.floor(currentMinutes / 60);
+      const m = currentMinutes % 60;
+
+      slots.push(
+        `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`
+      );
+
+      currentMinutes += interval;
+    }
+
+    return slots;
+  };
+
+  /* Mapa de horários ocupados */
   const busyMap = useMemo(() => {
     const map: Record<string, string[]> = {};
 
@@ -96,54 +130,49 @@ export default function SchedulerCard({
           map[dateKey].push(time);
         }
 
-        current.setMinutes(current.getMinutes() + 30);
+        current.setMinutes(current.getMinutes() + slotInterval);
       }
     });
 
     return map;
-  }, [events]);
+  }, [events, slotInterval]);
 
-  /* 🔹 Datas disponíveis */
+  /* Datas disponíveis */
   const availableDates = useMemo(() => {
     if (!selectedCity) return [];
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    // pega só a disponibilidade do médico da cidade selecionada
     const cityAvailability = doctorAvailability.find(
       (d) => d.city === selectedCity
     );
+
     if (!cityAvailability) return [];
 
     return cityAvailability.availability
       .filter((day) => {
         const dayDate = new Date(`${day.date}T00:00:00`);
 
-        // remove datas passadas
         if (dayDate < today) return false;
 
         const allSlots: string[] = [];
 
         day.periods.forEach((p) => {
-          let [h, m] = p.start.split(":").map(Number);
-          const [endH, endM] = p.end.split(":").map(Number);
-
-          while (h < endH || (h === endH && m < endM)) {
-            allSlots.push(
-              `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`
-            );
-            m += 30;
-            if (m === 60) {
-              m = 0;
-              h++;
-            }
+          if (!p?.start || !p?.end) {
+            console.log("PERIOD INVALIDO -> ", p);
+            return;
           }
+
+          const slots = generateSlots(p.start, p.end, slotInterval);
+
+          allSlots.push(...slots);
         });
 
-        // remove horários passados se for hoje
+        /* 🔹 Remove horários passados se for hoje */
         if (dayDate.getTime() === today.getTime()) {
           const now = new Date();
+
           const currentTime = `${String(now.getHours()).padStart(
             2,
             "0"
@@ -155,9 +184,9 @@ export default function SchedulerCard({
         return allSlots.length > 0;
       })
       .map((day) => day.date);
-  }, [selectedCity, doctorAvailability]);
+  }, [selectedCity, doctorAvailability, slotInterval]);
 
-  /* 🔹 Horários (DISPONÍVEL + INDISPONÍVEL) */
+  /* Horários (DISPONÍVEL + INDISPONÍVEL) */
   const availableTimes = useMemo<TimeSlot[]>(() => {
     if (!selectedDate || !selectedCity) return [];
 
@@ -185,38 +214,32 @@ export default function SchedulerCard({
     ).padStart(2, "0")}`;
 
     day.periods.forEach((period) => {
-      let [h, m] = period.start.split(":").map(Number);
-      const [endH, endM] = period.end.split(":").map(Number);
+      if (!period?.start || !period?.end) {
+        console.log("PERIODO INVALIDO -> ", period);
+        return;
+      }
 
-      while (h < endH || (h === endH && m < endM)) {
-        const time = `${String(h).padStart(2, "0")}:${String(m).padStart(
-          2,
-          "0"
-        )}`;
+      const generated = generateSlots(period.start, period.end, slotInterval);
+
+      generated.forEach((time) => {
         const isPastTime = isToday && time < currentTime;
 
         slots.push({
           time,
           isBooked: busy.includes(time) || isPastTime,
         });
-
-        m += 30;
-        if (m === 60) {
-          m = 0;
-          h++;
-        }
-      }
+      });
     });
 
     return slots;
-  }, [selectedDate, selectedCity, busyMap, doctorAvailability]);
+  }, [selectedDate, selectedCity, busyMap, doctorAvailability, slotInterval]);
 
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
     setSelectedTime(null);
     setShowCalendar(false);
 
-    // 🔥 AVISA O FORM QUE A DATA FOI ESCOLHIDA
+    // AVISA O FORM QUE A DATA FOI ESCOLHIDA
     onScheduleSelect(date);
   };
 

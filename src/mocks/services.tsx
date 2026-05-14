@@ -206,7 +206,7 @@ export const servicesOptions = [
     value: "proteses",
   },
   {
-    id: "9",
+    id: "10",
     label: "Restauração",
     value: "restauracao",
   },
