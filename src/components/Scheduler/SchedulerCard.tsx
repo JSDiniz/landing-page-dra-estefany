@@ -38,8 +38,6 @@ export default function SchedulerCard({
     (state) => state.doctorAvailability
   );
 
-  console.log("doctorAvailability -> ", doctorAvailability)
-
   const timeRef = useRef<HTMLDivElement>(null);
 
   const calendarRef = useRef<HTMLDivElement>(null);
@@ -160,7 +158,6 @@ export default function SchedulerCard({
 
         day.periods.forEach((p) => {
           if (!p?.start || !p?.end) {
-            console.log("PERIOD INVALIDO -> ", p);
             return;
           }
 
@@ -215,7 +212,6 @@ export default function SchedulerCard({
 
     day.periods.forEach((period) => {
       if (!period?.start || !period?.end) {
-        console.log("PERIODO INVALIDO -> ", period);
         return;
       }
 
