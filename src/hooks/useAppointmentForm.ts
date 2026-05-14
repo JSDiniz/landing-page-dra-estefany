@@ -5,10 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   AppointmentFormData,
   appointmentSchema,
-} from "../../../schemas/appointment.schema";
+} from "../schemas/appointment.schema";
 
-import { ClinicAddress, clinicAddresses } from "../../../mocks/clinicAddresses";
-import { API_URL } from "../../../config/api";
+import { ClinicAddress, clinicAddresses } from "../mocks/clinicAddresses";
+import { API_URL } from "../config/api";
 
 type ModalType = "success" | "error" | "warning" | "info";
 
@@ -83,14 +83,14 @@ export function useAppointmentForm() {
 
       const result = await response.json();
 
-      // 🔴 SE A API RETORNAR ERRO, PARA A EXECUÇÃO AQUI
+      // SE A API RETORNAR ERRO, PARA A EXECUÇÃO AQUI
       if (!response.ok) {
         setModalMessage({
           message: result.message || "Erro ao realizar agendamento.",
           type: "error",
         });
 
-        return; // ⛔ IMPORTANTE
+        return;
       }
 
       setModalMessage({
@@ -98,8 +98,7 @@ export function useAppointmentForm() {
         type: "success",
       });
       form.reset();
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
+    } catch {
       setModalMessage({
         message: "Erro ao realizar agendamento.",
         type: "error",

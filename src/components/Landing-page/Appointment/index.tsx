@@ -7,7 +7,7 @@ import { Modal } from "../../Modal";
 
 import { servicesOptions, servicesOptionsItacoatiara } from "../../../mocks/services";
 import { clinicAddresses } from "../../../mocks/clinicAddresses";
-import { useAppointmentForm } from "./useAppointmentForm";
+import { useAppointmentForm } from "../../../hooks/useAppointmentForm";
 import { phoneMask } from "../../../utils/phoneMask";
 
 export const AppointmentForm = () => {
@@ -23,6 +23,18 @@ export const AppointmentForm = () => {
   } = useAppointmentForm();
 
   const selectedCity = form.watch("city");
+
+  const handleCityChange = (city: string) => {
+    form.setValue("city", city);
+
+    // limpa dependências
+    form.setValue("service", "");
+    form.setValue("date", "");
+    form.setValue("time", "");
+
+    // força reset visual do SchedulerCard
+    setSchedulerKey((prev) => prev + 1);
+  };
 
   return (
     <section id="contato" className="py-20 bg-white">
@@ -113,7 +125,8 @@ export const AppointmentForm = () => {
                   Cidade
                 </label>
                 <select
-                  {...form.register("city")}
+                  value={selectedCity}
+                  onChange={(e) => handleCityChange(e.target.value)}
                   className="w-full px-4 py-2 border rounded-lg"
                 >
                   <option value="">Selecione a cidade</option>
