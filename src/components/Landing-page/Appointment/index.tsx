@@ -10,6 +10,8 @@ import { clinicAddresses } from "../../../mocks/clinicAddresses";
 import { useAppointmentForm } from "../../../hooks/useAppointmentForm";
 import { phoneMask } from "../../../utils/phoneMask";
 
+import DentalChair from '../../../assets/Appointment/dental-chair.svg';
+
 export const AppointmentForm = () => {
   const [schedulerKey, setSchedulerKey] = useState(0);
 
@@ -37,13 +39,13 @@ export const AppointmentForm = () => {
   };
 
   return (
-    <section id="contato" className="py-20 bg-white">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="contato" className="py-20 bg-white relative overflow-hidden">
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-2xl mx-auto"
+          className="max-w-2xl mx-auto bg-white border p-8 rounded-3xl"
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-4 text-center">
             Agende sua consulta
@@ -187,14 +189,24 @@ export const AppointmentForm = () => {
               <textarea
                 {...form.register("message")}
                 rows={4}
+                maxLength={500}
                 onInput={(e) => {
                   const target = e.currentTarget;
 
                   target.style.height = "auto";
-                  target.style.height = `${Math.min(target.scrollHeight, 250)}px`;
+
+                  const newHeight = Math.min(
+                    Math.max(target.scrollHeight, 120),
+                    300
+                  );
+
+                  target.style.height = `${newHeight}px`;
+
+                  target.style.overflowY =
+                    target.scrollHeight > 300 ? "auto" : "hidden";
                 }}
                 placeholder="Escreva uma mensagem (opcional)"
-                className="w-full px-4 py-2 border rounded-lg"
+                className="w-full px-4 py-2 min-h-[120px] max-h-[300px] border rounded-lg"
               />
             </div>
 
@@ -211,6 +223,12 @@ export const AppointmentForm = () => {
           </form>
         </motion.div>
       </div>
+
+      <img
+        src={DentalChair}
+        alt="DentalChair"
+        className="object-fill absolute -bottom-0 left-1/2 -translate-x-1/2 w-full z-0"
+      />
 
       {modalMessage && <Modal message={modalMessage.message} type={modalMessage.type} onClose={closeModal} />}
     </section>
